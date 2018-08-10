@@ -1,0 +1,525 @@
+<NotepadPlus>
+    <Project name="muduo-project">
+        <Folder name="examples">
+            <Folder name="ace">
+                <Folder name="logging">
+                    <File name="examples\ace\logging\client.cc" />
+                    <File name="examples\ace\logging\CMakeLists.txt" />
+                    <File name="examples\ace\logging\logrecord.proto" />
+                    <File name="examples\ace\logging\server.cc" />
+                </Folder>
+                <Folder name="ttcp">
+                    <File name="examples\ace\ttcp\CMakeLists.txt" />
+                    <File name="examples\ace\ttcp\common.cc" />
+                    <File name="examples\ace\ttcp\common.h" />
+                    <File name="examples\ace\ttcp\main.cc" />
+                    <File name="examples\ace\ttcp\ttcp.cc" />
+                    <File name="examples\ace\ttcp\ttcp_asio_async.cc" />
+                    <File name="examples\ace\ttcp\ttcp_asio_sync.cc" />
+                    <File name="examples\ace\ttcp\ttcp_blocking.cc" />
+                </Folder>
+            </Folder>
+            <Folder name="asio">
+                <Folder name="chat">
+                    <File name="examples\asio\chat\client.cc" />
+                    <File name="examples\asio\chat\CMakeLists.txt" />
+                    <File name="examples\asio\chat\codec.h" />
+                    <File name="examples\asio\chat\loadtest.cc" />
+                    <File name="examples\asio\chat\server.cc" />
+                    <File name="examples\asio\chat\server_threaded.cc" />
+                    <File name="examples\asio\chat\server_threaded_efficient.cc" />
+                    <File name="examples\asio\chat\server_threaded_highperformance.cc" />
+                </Folder>
+                <Folder name="tutorial">
+                    <Folder name="timer2">
+                        <File name="examples\asio\tutorial\timer2\timer.cc" />
+                    </Folder>
+                    <Folder name="timer3">
+                        <File name="examples\asio\tutorial\timer3\timer.cc" />
+                    </Folder>
+                    <Folder name="timer4">
+                        <File name="examples\asio\tutorial\timer4\timer.cc" />
+                    </Folder>
+                    <Folder name="timer5">
+                        <File name="examples\asio\tutorial\timer5\timer.cc" />
+                    </Folder>
+                    <Folder name="timer6">
+                        <File name="examples\asio\tutorial\timer6\timer.cc" />
+                    </Folder>
+                    <File name="examples\asio\tutorial\CMakeLists.txt" />
+                    <File name="examples\asio\tutorial\daytime_see_simple" />
+                    <File name="examples\asio\tutorial\there_is_no_timer1" />
+                </Folder>
+                <File name="examples\asio\echo_see_simple" />
+            </Folder>
+            <Folder name="cdns">
+                <File name="examples\cdns\CMakeLists.txt" />
+                <File name="examples\cdns\dns.cc" />
+                <File name="examples\cdns\Resolver.cc" />
+                <File name="examples\cdns\Resolver.h" />
+            </Folder>
+            <Folder name="curl">
+                <File name="examples\curl\CMakeLists.txt" />
+                <File name="examples\curl\Curl.cc" />
+                <File name="examples\curl\Curl.h" />
+                <File name="examples\curl\download.cc" />
+                <File name="examples\curl\mcurl.cc" />
+                <File name="examples\curl\README" />
+            </Folder>
+            <Folder name="fastcgi">
+                <File name="examples\fastcgi\CMakeLists.txt" />
+                <File name="examples\fastcgi\fastcgi.cc" />
+                <File name="examples\fastcgi\fastcgi.h" />
+                <File name="examples\fastcgi\fastcgi_test.cc" />
+                <File name="examples\fastcgi\nginx.conf" />
+            </Folder>
+            <Folder name="filetransfer">
+                <Folder name="loadtest">
+                    <File name="examples\filetransfer\loadtest\Client.java" />
+                    <File name="examples\filetransfer\loadtest\Handler.java" />
+                </Folder>
+                <File name="examples\filetransfer\CMakeLists.txt" />
+                <File name="examples\filetransfer\download.cc" />
+                <File name="examples\filetransfer\download2.cc" />
+                <File name="examples\filetransfer\download3.cc" />
+            </Folder>
+            <Folder name="hub">
+                <File name="examples\hub\CMakeLists.txt" />
+                <File name="examples\hub\codec.cc" />
+                <File name="examples\hub\codec.h" />
+                <File name="examples\hub\hub.cc" />
+                <File name="examples\hub\pub.cc" />
+                <File name="examples\hub\pubsub.cc" />
+                <File name="examples\hub\pubsub.h" />
+                <File name="examples\hub\README" />
+                <File name="examples\hub\sub.cc" />
+            </Folder>
+            <Folder name="idleconnection">
+                <File name="examples\idleconnection\CMakeLists.txt" />
+                <File name="examples\idleconnection\echo.cc" />
+                <File name="examples\idleconnection\echo.h" />
+                <File name="examples\idleconnection\main.cc" />
+                <File name="examples\idleconnection\sortedlist.cc" />
+            </Folder>
+            <Folder name="maxconnection">
+                <File name="examples\maxconnection\CMakeLists.txt" />
+                <File name="examples\maxconnection\echo.cc" />
+                <File name="examples\maxconnection\echo.h" />
+                <File name="examples\maxconnection\main.cc" />
+            </Folder>
+            <Folder name="memcached">
+                <Folder name="client">
+                    <File name="examples\memcached\client\bench.cc" />
+                    <File name="examples\memcached\client\CMakeLists.txt" />
+                </Folder>
+                <Folder name="server">
+                    <File name="examples\memcached\server\CMakeLists.txt" />
+                    <File name="examples\memcached\server\footprint_test.cc" />
+                    <File name="examples\memcached\server\Item.cc" />
+                    <File name="examples\memcached\server\Item.h" />
+                    <File name="examples\memcached\server\MemcacheServer.cc" />
+                    <File name="examples\memcached\server\MemcacheServer.h" />
+                    <File name="examples\memcached\server\server.cc" />
+                    <File name="examples\memcached\server\Session.cc" />
+                    <File name="examples\memcached\server\Session.h" />
+                </Folder>
+                <File name="examples\memcached\README" />
+            </Folder>
+            <Folder name="multiplexer">
+                <Folder name="harness">
+                    <Folder name="src">
+                        <Folder name="com">
+                            <Folder name="chenshuo">
+                                <Folder name="muduo">
+                                    <Folder name="example">
+                                        <Folder name="multiplexer">
+                                            <Folder name="testcase">
+                                                <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\testcase\TestOneClientBackendSend.java" />
+                                                <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\testcase\TestOneClientBothSend.java" />
+                                                <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\testcase\TestOneClientNoData.java" />
+                                                <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\testcase\TestOneClientSend.java" />
+                                                <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\testcase\TestTwoClients.java" />
+                                            </Folder>
+                                            <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\DataEvent.java" />
+                                            <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\Event.java" />
+                                            <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\EventQueue.java" />
+                                            <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\EventSource.java" />
+                                            <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\MockBackendServer.java" />
+                                            <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\MockClient.java" />
+                                            <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\MultiplexerTest.java" />
+                                            <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\MyCountDownLatch.java" />
+                                            <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\TestCase.java" />
+                                            <File name="examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\TestFailedException.java" />
+                                        </Folder>
+                                    </Folder>
+                                </Folder>
+                            </Folder>
+                        </Folder>
+                    </Folder>
+                    <File name="examples\multiplexer\harness\run.sh" />
+                </Folder>
+                <File name="examples\multiplexer\CMakeLists.txt" />
+                <File name="examples\multiplexer\demux.cc" />
+                <File name="examples\multiplexer\multiplexer.cc" />
+                <File name="examples\multiplexer\multiplexer_simple.cc" />
+            </Folder>
+            <Folder name="netty">
+                <Folder name="discard">
+                    <File name="examples\netty\discard\client.cc" />
+                    <File name="examples\netty\discard\CMakeLists.txt" />
+                    <File name="examples\netty\discard\server.cc" />
+                </Folder>
+                <Folder name="echo">
+                    <File name="examples\netty\echo\client.cc" />
+                    <File name="examples\netty\echo\CMakeLists.txt" />
+                    <File name="examples\netty\echo\server.cc" />
+                    <File name="examples\netty\echo\server2.cc" />
+                </Folder>
+                <Folder name="uptime">
+                    <File name="examples\netty\uptime\CMakeLists.txt" />
+                    <File name="examples\netty\uptime\uptime.cc" />
+                </Folder>
+            </Folder>
+            <Folder name="pingpong">
+                <File name="examples\pingpong\bench.cc" />
+                <File name="examples\pingpong\client.cc" />
+                <File name="examples\pingpong\CMakeLists.txt" />
+                <File name="examples\pingpong\server.cc" />
+            </Folder>
+            <Folder name="procmon">
+                <File name="examples\procmon\CMakeLists.txt" />
+                <File name="examples\procmon\dummyload.cc" />
+                <File name="examples\procmon\plot.cc" />
+                <File name="examples\procmon\plot.h" />
+                <File name="examples\procmon\plot_test.cc" />
+                <File name="examples\procmon\procmon.cc" />
+            </Folder>
+            <Folder name="protobuf">
+                <Folder name="codec">
+                    <File name="examples\protobuf\codec\client.cc" />
+                    <File name="examples\protobuf\codec\CMakeLists.txt" />
+                    <File name="examples\protobuf\codec\codec.cc" />
+                    <File name="examples\protobuf\codec\codec.h" />
+                    <File name="examples\protobuf\codec\codec_test.cc" />
+                    <File name="examples\protobuf\codec\dispatcher.h" />
+                    <File name="examples\protobuf\codec\dispatcher_lite.h" />
+                    <File name="examples\protobuf\codec\dispatcher_lite_test.cc" />
+                    <File name="examples\protobuf\codec\dispatcher_test.cc" />
+                    <File name="examples\protobuf\codec\query.proto" />
+                    <File name="examples\protobuf\codec\server.cc" />
+                </Folder>
+                <Folder name="resolver">
+                    <File name="examples\protobuf\resolver\client.cc" />
+                    <File name="examples\protobuf\resolver\CMakeLists.txt" />
+                    <File name="examples\protobuf\resolver\resolver.proto" />
+                    <File name="examples\protobuf\resolver\server.cc" />
+                </Folder>
+                <Folder name="rpc">
+                    <File name="examples\protobuf\rpc\client.cc" />
+                    <File name="examples\protobuf\rpc\CMakeLists.txt" />
+                    <File name="examples\protobuf\rpc\server.cc" />
+                    <File name="examples\protobuf\rpc\sudoku.proto" />
+                </Folder>
+                <Folder name="rpcbalancer">
+                    <File name="examples\protobuf\rpcbalancer\balancer.cc" />
+                    <File name="examples\protobuf\rpcbalancer\balancer_raw.cc" />
+                    <File name="examples\protobuf\rpcbalancer\CMakeLists.txt" />
+                </Folder>
+                <Folder name="rpcbench">
+                    <File name="examples\protobuf\rpcbench\client.cc" />
+                    <File name="examples\protobuf\rpcbench\CMakeLists.txt" />
+                    <File name="examples\protobuf\rpcbench\echo.proto" />
+                    <File name="examples\protobuf\rpcbench\server.cc" />
+                </Folder>
+                <File name="examples\protobuf\CMakeLists.txt" />
+            </Folder>
+            <Folder name="roundtrip">
+                <File name="examples\roundtrip\CMakeLists.txt" />
+                <File name="examples\roundtrip\roundtrip.cc" />
+                <File name="examples\roundtrip\roundtrip_udp.cc" />
+            </Folder>
+            <Folder name="shorturl">
+                <File name="examples\shorturl\CMakeLists.txt" />
+                <File name="examples\shorturl\shorturl.cc" />
+            </Folder>
+            <Folder name="simple">
+                <Folder name="allinone">
+                    <File name="examples\simple\allinone\allinone.cc" />
+                </Folder>
+                <Folder name="chargen">
+                    <File name="examples\simple\chargen\chargen.cc" />
+                    <File name="examples\simple\chargen\chargen.h" />
+                    <File name="examples\simple\chargen\main.cc" />
+                </Folder>
+                <Folder name="chargenclient">
+                    <File name="examples\simple\chargenclient\chargenclient.cc" />
+                </Folder>
+                <Folder name="daytime">
+                    <File name="examples\simple\daytime\daytime.cc" />
+                    <File name="examples\simple\daytime\daytime.h" />
+                    <File name="examples\simple\daytime\main.cc" />
+                </Folder>
+                <Folder name="discard">
+                    <File name="examples\simple\discard\discard.cc" />
+                    <File name="examples\simple\discard\discard.h" />
+                    <File name="examples\simple\discard\main.cc" />
+                </Folder>
+                <Folder name="echo">
+                    <File name="examples\simple\echo\echo.cc" />
+                    <File name="examples\simple\echo\echo.h" />
+                    <File name="examples\simple\echo\main.cc" />
+                </Folder>
+                <Folder name="time">
+                    <File name="examples\simple\time\main.cc" />
+                    <File name="examples\simple\time\time.cc" />
+                    <File name="examples\simple\time\time.h" />
+                </Folder>
+                <Folder name="timeclient">
+                    <File name="examples\simple\timeclient\timeclient.cc" />
+                </Folder>
+                <File name="examples\simple\CMakeLists.txt" />
+                <File name="examples\simple\premake4.lua" />
+            </Folder>
+            <Folder name="socks4a">
+                <File name="examples\socks4a\balancer.cc" />
+                <File name="examples\socks4a\CMakeLists.txt" />
+                <File name="examples\socks4a\socks4a.cc" />
+                <File name="examples\socks4a\tcprelay.cc" />
+                <File name="examples\socks4a\tunnel.h" />
+            </Folder>
+            <Folder name="sudoku">
+                <File name="examples\sudoku\batch.cc" />
+                <File name="examples\sudoku\CMakeLists.txt" />
+                <File name="examples\sudoku\loadtest.cc" />
+                <File name="examples\sudoku\percentile.h" />
+                <File name="examples\sudoku\pipeline.cc" />
+                <File name="examples\sudoku\server_basic.cc" />
+                <File name="examples\sudoku\server_hybrid.cc" />
+                <File name="examples\sudoku\server_multiloop.cc" />
+                <File name="examples\sudoku\server_prod.cc" />
+                <File name="examples\sudoku\server_threadpool.cc" />
+                <File name="examples\sudoku\stat.h" />
+                <File name="examples\sudoku\stat_unittest.cc" />
+                <File name="examples\sudoku\sudoku.cc" />
+                <File name="examples\sudoku\sudoku.h" />
+            </Folder>
+            <Folder name="twisted">
+                <Folder name="finger">
+                    <File name="examples\twisted\finger\CMakeLists.txt" />
+                    <File name="examples\twisted\finger\finger01.cc" />
+                    <File name="examples\twisted\finger\finger02.cc" />
+                    <File name="examples\twisted\finger\finger03.cc" />
+                    <File name="examples\twisted\finger\finger04.cc" />
+                    <File name="examples\twisted\finger\finger05.cc" />
+                    <File name="examples\twisted\finger\finger06.cc" />
+                    <File name="examples\twisted\finger\finger07.cc" />
+                    <File name="examples\twisted\finger\README" />
+                </Folder>
+            </Folder>
+            <Folder name="wordcount">
+                <File name="examples\wordcount\CMakeLists.txt" />
+                <File name="examples\wordcount\gen.py" />
+                <File name="examples\wordcount\hash.h" />
+                <File name="examples\wordcount\hasher.cc" />
+                <File name="examples\wordcount\README" />
+                <File name="examples\wordcount\receiver.cc" />
+                <File name="examples\wordcount\slowsink.py" />
+            </Folder>
+            <Folder name="zeromq">
+                <File name="examples\zeromq\CMakeLists.txt" />
+                <File name="examples\zeromq\local_lat.cc" />
+                <File name="examples\zeromq\README" />
+                <File name="examples\zeromq\remote_lat.cc" />
+            </Folder>
+            <File name="examples\CMakeLists.txt" />
+        </Folder>
+        <Folder name="muduo-lib">
+            <Folder name="base">
+                <Folder name="tests">
+                    <File name="muduo\base\tests\AsyncLogging_test.cc" />
+                    <File name="muduo\base\tests\Atomic_unittest.cc" />
+                    <File name="muduo\base\tests\BlockingQueue_bench.cc" />
+                    <File name="muduo\base\tests\BlockingQueue_test.cc" />
+                    <File name="muduo\base\tests\BoundedBlockingQueue_test.cc" />
+                    <File name="muduo\base\tests\CMakeLists.txt" />
+                    <File name="muduo\base\tests\Date_unittest.cc" />
+                    <File name="muduo\base\tests\Exception_test.cc" />
+                    <File name="muduo\base\tests\FileUtil_test.cc" />
+                    <File name="muduo\base\tests\Fork_test.cc" />
+                    <File name="muduo\base\tests\GzipFile_test.cc" />
+                    <File name="muduo\base\tests\LogFile_test.cc" />
+                    <File name="muduo\base\tests\Logging_test.cc" />
+                    <File name="muduo\base\tests\LogStream_bench.cc" />
+                    <File name="muduo\base\tests\LogStream_test.cc" />
+                    <File name="muduo\base\tests\Mutex_test.cc" />
+                    <File name="muduo\base\tests\ProcessInfo_test.cc" />
+                    <File name="muduo\base\tests\SingletonThreadLocal_test.cc" />
+                    <File name="muduo\base\tests\Singleton_test.cc" />
+                    <File name="muduo\base\tests\ThreadLocalSingleton_test.cc" />
+                    <File name="muduo\base\tests\ThreadLocal_test.cc" />
+                    <File name="muduo\base\tests\ThreadPool_test.cc" />
+                    <File name="muduo\base\tests\Thread_bench.cc" />
+                    <File name="muduo\base\tests\Thread_test.cc" />
+                    <File name="muduo\base\tests\Timestamp_unittest.cc" />
+                    <File name="muduo\base\tests\TimeZone_unittest.cc" />
+                </Folder>
+                <File name="muduo\base\AsyncLogging.cc" />
+                <File name="muduo\base\AsyncLogging.h" />
+                <File name="muduo\base\Atomic.h" />
+                <File name="muduo\base\BlockingQueue.h" />
+                <File name="muduo\base\BoundedBlockingQueue.h" />
+                <File name="muduo\base\CMakeLists.txt" />
+                <File name="muduo\base\Condition.cc" />
+                <File name="muduo\base\Condition.h" />
+                <File name="muduo\base\copyable.h" />
+                <File name="muduo\base\CountDownLatch.cc" />
+                <File name="muduo\base\CountDownLatch.h" />
+                <File name="muduo\base\CurrentThread.h" />
+                <File name="muduo\base\Date.cc" />
+                <File name="muduo\base\Date.h" />
+                <File name="muduo\base\Exception.cc" />
+                <File name="muduo\base\Exception.h" />
+                <File name="muduo\base\FileUtil.cc" />
+                <File name="muduo\base\FileUtil.h" />
+                <File name="muduo\base\GzipFile.h" />
+                <File name="muduo\base\LogFile.cc" />
+                <File name="muduo\base\LogFile.h" />
+                <File name="muduo\base\Logging.cc" />
+                <File name="muduo\base\Logging.h" />
+                <File name="muduo\base\LogStream.cc" />
+                <File name="muduo\base\LogStream.h" />
+                <File name="muduo\base\Mutex.h" />
+                <File name="muduo\base\premake4.lua" />
+                <File name="muduo\base\ProcessInfo.cc" />
+                <File name="muduo\base\ProcessInfo.h" />
+                <File name="muduo\base\Singleton.h" />
+                <File name="muduo\base\StringPiece.h" />
+                <File name="muduo\base\Thread.cc" />
+                <File name="muduo\base\Thread.h" />
+                <File name="muduo\base\ThreadLocal.h" />
+                <File name="muduo\base\ThreadLocalSingleton.h" />
+                <File name="muduo\base\ThreadPool.cc" />
+                <File name="muduo\base\ThreadPool.h" />
+                <File name="muduo\base\Timestamp.cc" />
+                <File name="muduo\base\Timestamp.h" />
+                <File name="muduo\base\TimeZone.cc" />
+                <File name="muduo\base\TimeZone.h" />
+                <File name="muduo\base\Types.h" />
+                <File name="muduo\base\WeakCallback.h" />
+            </Folder>
+            <Folder name="net">
+                <Folder name="http">
+                    <Folder name="tests">
+                        <File name="muduo\net\http\tests\HttpRequest_unittest.cc" />
+                        <File name="muduo\net\http\tests\HttpServer_test.cc" />
+                    </Folder>
+                    <File name="muduo\net\http\CMakeLists.txt" />
+                    <File name="muduo\net\http\HttpContext.cc" />
+                    <File name="muduo\net\http\HttpContext.h" />
+                    <File name="muduo\net\http\HttpRequest.h" />
+                    <File name="muduo\net\http\HttpResponse.cc" />
+                    <File name="muduo\net\http\HttpResponse.h" />
+                    <File name="muduo\net\http\HttpServer.cc" />
+                    <File name="muduo\net\http\HttpServer.h" />
+                </Folder>
+                <Folder name="inspect">
+                    <Folder name="tests">
+                        <File name="muduo\net\inspect\tests\Inspector_test.cc" />
+                    </Folder>
+                    <File name="muduo\net\inspect\CMakeLists.txt" />
+                    <File name="muduo\net\inspect\Inspector.cc" />
+                    <File name="muduo\net\inspect\Inspector.h" />
+                    <File name="muduo\net\inspect\PerformanceInspector.cc" />
+                    <File name="muduo\net\inspect\PerformanceInspector.h" />
+                    <File name="muduo\net\inspect\ProcessInspector.cc" />
+                    <File name="muduo\net\inspect\ProcessInspector.h" />
+                    <File name="muduo\net\inspect\SystemInspector.cc" />
+                    <File name="muduo\net\inspect\SystemInspector.h" />
+                </Folder>
+                <Folder name="poller">
+                    <File name="muduo\net\poller\DefaultPoller.cc" />
+                    <File name="muduo\net\poller\EPollPoller.cc" />
+                    <File name="muduo\net\poller\EPollPoller.h" />
+                    <File name="muduo\net\poller\PollPoller.cc" />
+                    <File name="muduo\net\poller\PollPoller.h" />
+                </Folder>
+                <Folder name="protobuf">
+                    <File name="muduo\net\protobuf\BufferStream.h" />
+                    <File name="muduo\net\protobuf\CMakeLists.txt" />
+                    <File name="muduo\net\protobuf\ProtobufCodecLite.cc" />
+                    <File name="muduo\net\protobuf\ProtobufCodecLite.h" />
+                </Folder>
+                <Folder name="protorpc">
+                    <File name="muduo\net\protorpc\CMakeLists.txt" />
+                    <File name="muduo\net\protorpc\google-inl.h" />
+                    <File name="muduo\net\protorpc\README" />
+                    <File name="muduo\net\protorpc\rpc.proto" />
+                    <File name="muduo\net\protorpc\RpcChannel.cc" />
+                    <File name="muduo\net\protorpc\RpcChannel.h" />
+                    <File name="muduo\net\protorpc\RpcCodec.cc" />
+                    <File name="muduo\net\protorpc\RpcCodec.h" />
+                    <File name="muduo\net\protorpc\RpcCodec_test.cc" />
+                    <File name="muduo\net\protorpc\RpcServer.cc" />
+                    <File name="muduo\net\protorpc\RpcServer.h" />
+                    <File name="muduo\net\protorpc\rpcservice.proto" />
+                </Folder>
+                <Folder name="tests">
+                    <File name="muduo\net\tests\Buffer_unittest.cc" />
+                    <File name="muduo\net\tests\Channel_test.cc" />
+                    <File name="muduo\net\tests\CMakeLists.txt" />
+                    <File name="muduo\net\tests\EchoClient_unittest.cc" />
+                    <File name="muduo\net\tests\EchoServer_unittest.cc" />
+                    <File name="muduo\net\tests\EventLoopThreadPool_unittest.cc" />
+                    <File name="muduo\net\tests\EventLoopThread_unittest.cc" />
+                    <File name="muduo\net\tests\EventLoop_unittest.cc" />
+                    <File name="muduo\net\tests\InetAddress_unittest.cc" />
+                    <File name="muduo\net\tests\TcpClient_reg1.cc" />
+                    <File name="muduo\net\tests\TcpClient_reg2.cc" />
+                    <File name="muduo\net\tests\TcpClient_reg3.cc" />
+                    <File name="muduo\net\tests\TimerQueue_unittest.cc" />
+                    <File name="muduo\net\tests\ZlibStream_unittest.cc" />
+                </Folder>
+                <File name="muduo\net\Acceptor.cc" />
+                <File name="muduo\net\Acceptor.h" />
+                <File name="muduo\net\boilerplate.cc" />
+                <File name="muduo\net\boilerplate.h" />
+                <File name="muduo\net\Buffer.cc" />
+                <File name="muduo\net\Buffer.h" />
+                <File name="muduo\net\Callbacks.h" />
+                <File name="muduo\net\Channel.cc" />
+                <File name="muduo\net\Channel.h" />
+                <File name="muduo\net\CMakeLists.txt" />
+                <File name="muduo\net\Connector.cc" />
+                <File name="muduo\net\Connector.h" />
+                <File name="muduo\net\Endian.h" />
+                <File name="muduo\net\EventLoop.cc" />
+                <File name="muduo\net\EventLoop.h" />
+                <File name="muduo\net\EventLoopThread.cc" />
+                <File name="muduo\net\EventLoopThread.h" />
+                <File name="muduo\net\EventLoopThreadPool.cc" />
+                <File name="muduo\net\EventLoopThreadPool.h" />
+                <File name="muduo\net\InetAddress.cc" />
+                <File name="muduo\net\InetAddress.h" />
+                <File name="muduo\net\Poller.cc" />
+                <File name="muduo\net\Poller.h" />
+                <File name="muduo\net\premake4.lua" />
+                <File name="muduo\net\Socket.cc" />
+                <File name="muduo\net\Socket.h" />
+                <File name="muduo\net\SocketsOps.cc" />
+                <File name="muduo\net\SocketsOps.h" />
+                <File name="muduo\net\TcpClient.cc" />
+                <File name="muduo\net\TcpClient.h" />
+                <File name="muduo\net\TcpConnection.cc" />
+                <File name="muduo\net\TcpConnection.h" />
+                <File name="muduo\net\TcpServer.cc" />
+                <File name="muduo\net\TcpServer.h" />
+                <File name="muduo\net\Timer.cc" />
+                <File name="muduo\net\Timer.h" />
+                <File name="muduo\net\TimerId.h" />
+                <File name="muduo\net\TimerQueue.cc" />
+                <File name="muduo\net\TimerQueue.h" />
+                <File name="muduo\net\ZlibStream.h" />
+            </Folder>
+        </Folder>
+    </Project>
+</NotepadPlus>
