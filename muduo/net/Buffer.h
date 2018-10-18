@@ -45,14 +45,16 @@ class Buffer : public muduo::copyable
   static const size_t kCheapPrepend = 8;
   static const size_t kInitialSize = 1024;
 
+  //一般只将有单个参数的构造函数声明为explicit，此关键只能够修饰构造函数。无参数的构造函数和多参数的构造函数总是显示调用，这种情况在构造函数前加explicit无意义。
+  //当不希望进行自动类型转换时用explicit，标准库的许多构造函数都是explicit的。
   explicit Buffer(size_t initialSize = kInitialSize)
     : buffer_(kCheapPrepend + initialSize),
       readerIndex_(kCheapPrepend),
       writerIndex_(kCheapPrepend)
   {
     assert(readableBytes() == 0);
-    assert(writableBytes() == initialSize);
-    assert(prependableBytes() == kCheapPrepend);
+    assert(writableBytes() == initialSize);//1024
+    assert(prependableBytes() == kCheapPrepend);//8
   }
 
   // implicit copy-ctor, move-ctor, dtor and assignment are fine
@@ -181,11 +183,11 @@ class Buffer : public muduo::copyable
 
   void append(const char* /*restrict*/ data, size_t len)
   {
-    ensureWritableBytes(len);//保证有足够的空间存储数据
+    ensureWritableBytes(len);//保证有足够的空间存储剩余数据
 	//如果要把一个序列（sequence）拷贝到一个容器（container）中去，
 	//通常用std::copy算法
     std::copy(data, data+len, beginWrite());
-    hasWritten(len);
+    hasWritten(len);//累加writerIndex_
   }
 
   void append(const void* /*restrict*/ data, size_t len)
@@ -391,6 +393,8 @@ class Buffer : public muduo::copyable
 
   void makeSpace(size_t len)
   {
+	  //如果可写的空间+已读索引值(初始为8) < 超出buff部分+预留的8bytes
+	  //即此时已读去一部分空间且刚好满足超出部分+预留的话则不用重置size
     if (writableBytes() + prependableBytes() < len + kCheapPrepend)
     {
       // FIXME: move readable data
@@ -399,6 +403,7 @@ class Buffer : public muduo::copyable
     else
     {
       // move readable data to the front, make space inside buffer
+	  //如果readerIndex_>kCheapPrepend,则将剩余未读（writerIndex_ - readerIndex_）的数据整体前移。
       assert(kCheapPrepend < readerIndex_);
       size_t readable = readableBytes();
       std::copy(begin()+readerIndex_,

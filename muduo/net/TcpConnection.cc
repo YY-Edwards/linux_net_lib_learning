@@ -348,9 +348,19 @@ void TcpConnection::handleRead(Timestamp receiveTime)
 {
   loop_->assertInLoopThread();
   int savedErrno = 0;
+  //底层调用readv
   ssize_t n = inputBuffer_.readFd(channel_->fd(), &savedErrno);
   if (n > 0)
   {
+	//类的成员函数里需要把当前类对象作为参数传给其他函数时，
+	//就需要传递一个指向自身的share_ptr。
+	//因为在异步调用中，存在一个保活机制，异步函数执行的时间点我们是无法确定的，
+	//然而异步函数可能会使用到异步调用之前就存在的变量。
+	//为了保证该变量在异步函数执期间一直有效，
+	//我们可以传递一个指向自身的share_ptr给异步函数，
+	//这样在异步函数执行期间share_ptr所管理的对象就不会析构，
+	//所使用的变量也会一直有效了（保活）。
+
     messageCallback_(shared_from_this(), &inputBuffer_, receiveTime);
   }
   else if (n == 0)

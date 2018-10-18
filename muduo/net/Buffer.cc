@@ -35,6 +35,7 @@ ssize_t Buffer::readFd(int fd, int* savedErrno)
   // when there is enough space in this buffer, don't read into extrabuf.
   // when extrabuf is used, we read 128k-1 bytes at most.
   const int iovcnt = (writable < sizeof extrabuf) ? 2 : 1;
+  //缓冲区够大，通常只需要一次readv调用就能读完全部数据
   const ssize_t n = sockets::readv(fd, vec, iovcnt);
   if (n < 0)//发生错误
   {
@@ -46,9 +47,10 @@ ssize_t Buffer::readFd(int fd, int* savedErrno)
   }
   else//超过可写范围
   {
-    writerIndex_ = buffer_.size();//先将buffer数据尺寸赋值给写索引
-    append(extrabuf, n - writable);
+    writerIndex_ = buffer_.size();//先将buffer数据尺寸(1024+8)赋值给写索引
+    append(extrabuf, n - writable);//先扩充buff,将剩余的extrabuf里数据拷贝到buff中
   }
+  //再读一次？，这种情况在一般的应用场景里不会出现。栈缓冲空间已经达到64k了，一般的应用达不到。
   // if (n == writable + sizeof extrabuf)
   // {
   //   goto line_30;

@@ -24,7 +24,17 @@ class ChatServer : boost::noncopyable
   {
     server_.setConnectionCallback(
         boost::bind(&ChatServer::onConnection, this, _1));
-    server_.setMessageCallback(
+	//将onMessage注册到相应的Channel;	
+	//function可以配合bind使用，并存储bind表达式的结果。
+	//另外，bind()是一个函数模板，它的原理是根据已有的模板，生成一个函数，
+	//但是由于bind()不知道生成的函数执行的时候，传递进来的参数是否还有效。
+	//所以它选择参数值传递而不是引用传递。如果想引用传递，std::ref和std::cref就派上用场了。
+	
+    //还有，bind采用的是拷贝的方式存储，这意味着如果函数对象或值参数很大、拷贝代价会很高，
+	//或者无法拷贝，那么使用就会受限制。因此搭配ref包装对象的引用，从而就变相的变成存储
+	//对象引用的拷贝，从而降低拷贝的代价。然后这也有隐患，会导致调用时可能延时。那么调用的时候
+	//对象不存在或者销毁了，那么就会发生未定义行为。
+	server_.setMessageCallback(
         boost::bind(&LengthHeaderCodec::onMessage, &codec_, _1, _2, _3));
   }
 
