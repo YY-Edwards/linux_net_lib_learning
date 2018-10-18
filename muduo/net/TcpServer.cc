@@ -39,6 +39,7 @@ TcpServer::TcpServer(EventLoop* loop,
 	在成员函数前加上取地址操作符&，表明这是一个成员函数指针，
 	否则无法通过编译，与绑定普通函数的不一样。
 	*/
+	//这里链接acceptor
   acceptor_->setNewConnectionCallback(
       boost::bind(&TcpServer::newConnection, this, _1, _2));
 }

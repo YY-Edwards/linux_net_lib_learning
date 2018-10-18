@@ -249,7 +249,7 @@ void EventLoop::updateChannel(Channel* channel)
 {
   assert(channel->ownerLoop() == this);
   assertInLoopThread();
-  poller_->updateChannel(channel);
+  poller_->updateChannel(channel);//调用poller的update
 }
 
 void EventLoop::removeChannel(Channel* channel)

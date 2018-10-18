@@ -105,6 +105,7 @@ class TcpServer : boost::noncopyable
   EventLoop* loop_;  // the acceptor loop
   const string ipPort_;
   const string name_;
+  //scoped_ptr:只能在本作用域范围使用。
   boost::scoped_ptr<Acceptor> acceptor_; // avoid revealing Acceptor
   boost::shared_ptr<EventLoopThreadPool> threadPool_;
   ConnectionCallback connectionCallback_;//function用于回调的典型例子
