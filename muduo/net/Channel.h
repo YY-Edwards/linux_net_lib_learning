@@ -66,7 +66,8 @@ class Channel : boost::noncopyable
 
   int fd() const { return fd_; }
   int events() const { return events_; }
-  void set_revents(int revt) { revents_ = revt; } // used by pollers
+  void set_revents(int revt) { revents_ = revt; } // used by pollers，
+												//在pollers里，通过此接口设置通道的具体事件
   // int revents() const { return revents_; }
   bool isNoneEvent() const { return events_ == kNoneEvent; }
 

@@ -108,10 +108,10 @@ void EventLoop::loop()
   quit_ = false;  // FIXME: what if someone calls quit() before loop() ?
   LOG_TRACE << "EventLoop " << this << " start looping";
 
-  while (!quit_)
+  while (!quit_)//终止检测
   {
     activeChannels_.clear();
-    pollReturnTime_ = poller_->poll(kPollTimeMs, &activeChannels_);
+    pollReturnTime_ = poller_->poll(kPollTimeMs, &activeChannels_);//轮询，找到活动的通道
     ++iteration_;
     if (Logger::logLevel() <= Logger::TRACE)
     {
@@ -123,7 +123,8 @@ void EventLoop::loop()
         it != activeChannels_.end(); ++it)
     {
       currentActiveChannel_ = *it;
-      currentActiveChannel_->handleEvent(pollReturnTime_);
+      currentActiveChannel_->handleEvent(pollReturnTime_);//然后每一个活动的通道处理相应的事件，
+																															
     }
     currentActiveChannel_ = NULL;
     eventHandling_ = false;

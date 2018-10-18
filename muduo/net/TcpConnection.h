@@ -39,6 +39,10 @@ class Socket;
 /// TCP connection, for both client and server usage.
 ///
 /// This is an interface class, so don't expose too much details.
+//继承enable_shared_from_this，this指针就能变身为shared_ptr
+//需要用shared_ptr自我管理的类
+//理解这句话：不能对一个普通对象使用share_from_this()获取shared_ptr.
+//因此TcpConnection对象实例时，都必须是shared_ptr类型。
 class TcpConnection : boost::noncopyable,
                       public boost::enable_shared_from_this<TcpConnection>
 {

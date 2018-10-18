@@ -101,7 +101,7 @@ void EPollPoller::fillActiveChannels(int numEvents,
     assert(it != channels_.end());
     assert(it->second == channel);
 #endif
-    channel->set_revents(events_[i].events);
+    channel->set_revents(events_[i].events);//在这里设置此通道相应的具体事件
     activeChannels->push_back(channel);
   }
 }

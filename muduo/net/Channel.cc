@@ -97,7 +97,7 @@ void Channel::handleEventWithGuard(Timestamp receiveTime)
   {
     LOG_WARN << "fd = " << fd_ << " Channel::handle_event() POLLNVAL";
   }
-
+  //各种活动事件通过回调实现
   if (revents_ & (POLLERR | POLLNVAL))
   {
     if (errorCallback_) errorCallback_();

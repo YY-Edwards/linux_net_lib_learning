@@ -36,17 +36,17 @@ ssize_t Buffer::readFd(int fd, int* savedErrno)
   // when extrabuf is used, we read 128k-1 bytes at most.
   const int iovcnt = (writable < sizeof extrabuf) ? 2 : 1;
   const ssize_t n = sockets::readv(fd, vec, iovcnt);
-  if (n < 0)
+  if (n < 0)//发生错误
   {
     *savedErrno = errno;
   }
-  else if (implicit_cast<size_t>(n) <= writable)
+  else if (implicit_cast<size_t>(n) <= writable)//长度在可写范围内
   {
-    writerIndex_ += n;
+    writerIndex_ += n;//写索引累加
   }
-  else
+  else//超过可写范围
   {
-    writerIndex_ = buffer_.size();
+    writerIndex_ = buffer_.size();//先将buffer数据尺寸赋值给写索引
     append(extrabuf, n - writable);
   }
   // if (n == writable + sizeof extrabuf)

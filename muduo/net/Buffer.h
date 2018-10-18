@@ -181,7 +181,9 @@ class Buffer : public muduo::copyable
 
   void append(const char* /*restrict*/ data, size_t len)
   {
-    ensureWritableBytes(len);
+    ensureWritableBytes(len);//保证有足够的空间存储数据
+	//如果要把一个序列（sequence）拷贝到一个容器（container）中去，
+	//通常用std::copy算法
     std::copy(data, data+len, beginWrite());
     hasWritten(len);
   }
@@ -193,7 +195,7 @@ class Buffer : public muduo::copyable
 
   void ensureWritableBytes(size_t len)
   {
-    if (writableBytes() < len)
+    if (writableBytes() < len)//剩余需要存储的数据长度大于可写范围，则申请新的空间
     {
       makeSpace(len);
     }
