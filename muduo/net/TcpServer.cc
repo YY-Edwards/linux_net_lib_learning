@@ -28,6 +28,8 @@ TcpServer::TcpServer(EventLoop* loop,
   : loop_(CHECK_NOTNULL(loop)),
     ipPort_(listenAddr.toIpPort()),
     name_(nameArg),
+	//构造一个scoped_ptr对象
+	//相比较于unique_ptr,更专注。
     acceptor_(new Acceptor(loop, listenAddr, option == kReusePort)),
     threadPool_(new EventLoopThreadPool(loop, name_)),
     connectionCallback_(defaultConnectionCallback),
@@ -39,7 +41,7 @@ TcpServer::TcpServer(EventLoop* loop,
 	在成员函数前加上取地址操作符&，表明这是一个成员函数指针，
 	否则无法通过编译，与绑定普通函数的不一样。
 	*/
-	//这里链接acceptor
+	//这里链接acceptor，在调用readcallback后再tcpserver层再创建连接。
   acceptor_->setNewConnectionCallback(
       boost::bind(&TcpServer::newConnection, this, _1, _2));
 }
@@ -73,7 +75,7 @@ void TcpServer::start()
 
     assert(!acceptor_->listenning());
     loop_->runInLoop(
-        boost::bind(&Acceptor::listen, get_pointer(acceptor_)));
+        boost::bind(&Acceptor::listen, get_pointer(acceptor_)));//执行acceptor::listen
   }
 }
 

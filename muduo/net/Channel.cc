@@ -53,7 +53,7 @@ void Channel::tie(const boost::shared_ptr<void>& obj)
 void Channel::update()
 {
   addedToLoop_ = true;
-  loop_->updateChannel(this);//调用loop中的update
+  loop_->updateChannel(this);//调用loop中的update,不存在则添加，有则更新。
 }
 
 void Channel::remove()

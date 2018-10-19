@@ -40,7 +40,7 @@ class ChatServer : boost::noncopyable
 
   void start()
   {
-    server_.start();
+    server_.start();//调用TcpServer的start()
   }
 
  private:

@@ -35,6 +35,8 @@ Acceptor::Acceptor(EventLoop* loop, const InetAddress& listenAddr, bool reusepor
   acceptSocket_.setReuseAddr(true);
   acceptSocket_.setReusePort(reuseport);
   acceptSocket_.bindAddress(listenAddr);
+  //这里，将Acceptor的handleRead注册给channel的ReadCallback,
+  //即是当此通道发送可读事件时，会调用Acceptor的handleRead()接口
   acceptChannel_.setReadCallback(
       boost::bind(&Acceptor::handleRead, this));
 }
