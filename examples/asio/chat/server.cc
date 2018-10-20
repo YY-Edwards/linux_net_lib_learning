@@ -19,6 +19,14 @@ class ChatServer : boost::noncopyable
  public:
   ChatServer(EventLoop* loop,
              const InetAddress& listenAddr)
+	//构造数据成员是按数据成员在类中声明的顺序进行构造。		 
+	//在构造函数体内的所谓初始化，只是给已经生成的对象重新赋值罢了，
+	//并没有进行对象的构造。就是说对象构造必须在初始化列表里。
+	//这意味着其他类对象的构造先于本类的构造。
+	/*
+	就是说在没有默认构造函数的时候，如果一个类对象是另一个类的数据成员，
+	那么初始化这个数据成员，就应该放到冒号后面。这样可以带参数。
+	*/
   : server_(loop, listenAddr, "ChatServer"),
     codec_(boost::bind(&ChatServer::onStringMessage, this, _1, _2, _3))
   {

@@ -92,8 +92,10 @@ void EPollPoller::fillActiveChannels(int numEvents,
                                      ChannelList* activeChannels) const
 {
   assert(implicit_cast<size_t>(numEvents) <= events_.size());
-  for (int i = 0; i < numEvents; ++i)
+  for (int i = 0; i < numEvents; ++i)//此处是遍历活动的描述符事件
   {
+	//返回的事件里data的地址里存储的是channel信息
+	//然后取出channel->fd, 然后再与内存里的map进行查找fd。。。
     Channel* channel = static_cast<Channel*>(events_[i].data.ptr);
 #ifndef NDEBUG
     int fd = channel->fd();
@@ -118,6 +120,11 @@ void EPollPoller::updateChannel(Channel* channel)
     int fd = channel->fd();
     if (index == kNew)
     {
+	/*
+	  继承了Poller的成员变量channels_。
+	  typedef std::map<int, Channel*> ChannelMap;
+	  ChannelMap channels_;
+	*/
       assert(channels_.find(fd) == channels_.end());
       channels_[fd] = channel;
     }
@@ -128,6 +135,7 @@ void EPollPoller::updateChannel(Channel* channel)
     }
 
     channel->set_index(kAdded);
+	//为新加入的描述符注册
     update(EPOLL_CTL_ADD, channel);
   }
   else
@@ -176,6 +184,17 @@ void EPollPoller::update(int operation, Channel* channel)
   struct epoll_event event;
   bzero(&event, sizeof event);
   event.events = channel->events();
+  //注意：此处是放置的通道地址，而且是将fd信息给包装起来的。
+  //注册的时候将channel信息直接写进去，然后等待epoll_wait返回的时候，
+  //先取出channle信息然后再取出fd进行区分操作。
+  //原理如下：
+  /*
+  将fd等所有我们感兴趣的东西全部放到一个结构体st里面，
+  然后将结构体指针st赋值给ptr，当epoll_wait()返回时，
+  先：ptr=（st*）((evs[index].data.ptr))，
+  根据pst里面的fd就可以知道是哪个套接字发送过来的数据了。
+  然后再条用recv(ptr->fd)等套接字函数收数据。
+  */
   event.data.ptr = channel;
   int fd = channel->fd();
   LOG_TRACE << "epoll_ctl op = " << operationToString(operation)

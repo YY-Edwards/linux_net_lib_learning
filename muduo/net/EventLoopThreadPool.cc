@@ -46,9 +46,9 @@ void EventLoopThreadPool::start(const ThreadInitCallback& cb)
     snprintf(buf, sizeof buf, "%s%d", name_.c_str(), i);
     EventLoopThread* t = new EventLoopThread(cb, buf);
     threads_.push_back(t);
-    loops_.push_back(t->startLoop());
+    loops_.push_back(t->startLoop());//启动线程，其中调用cb?
   }
-  if (numThreads_ == 0 && cb)
+  if (numThreads_ == 0 && cb)//单线程模式的情况下
   {
     cb(baseLoop_);
   }
@@ -60,6 +60,7 @@ EventLoop* EventLoopThreadPool::getNextLoop()
   assert(started_);
   EventLoop* loop = baseLoop_;
 
+  //采用round-robin算法来选取pool重点Eventloop
   if (!loops_.empty())
   {
     // round-robin
@@ -70,7 +71,7 @@ EventLoop* EventLoopThreadPool::getNextLoop()
       next_ = 0;
     }
   }
-  return loop;
+  return loop;//如果是单线程服务，每次返回的都是baseLoop_。即TcpSever自己用的那个。
 }
 
 EventLoop* EventLoopThreadPool::getLoopForHash(size_t hashCode)
