@@ -326,8 +326,10 @@ void TcpConnection::connectEstablished()
   assert(state_ == kConnecting);
   setState(kConnected);
   channel_->tie(shared_from_this());
+  /*
+  此处会更新通道，并将新链接通道加入map表中
+  */
   channel_->enableReading();
-
   connectionCallback_(shared_from_this());
 }
 

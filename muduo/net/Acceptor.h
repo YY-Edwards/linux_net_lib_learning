@@ -48,7 +48,7 @@ class Acceptor : boost::noncopyable
 
   EventLoop* loop_;
   Socket acceptSocket_;
-  Channel acceptChannel_;
+  Channel acceptChannel_;//用于观察acceptSocket_上的Readable事件，然后回调hanldread()。
   NewConnectionCallback newConnectionCallback_;
   bool listenning_;
   int idleFd_;

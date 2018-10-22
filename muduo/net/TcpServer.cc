@@ -64,6 +64,7 @@ TcpServer::~TcpServer()
 void TcpServer::setThreadNum(int numThreads)
 {
   assert(0 <= numThreads);
+  //根据参数决定是否启用多线程模式？
   threadPool_->setThreadNum(numThreads);
 }
 
@@ -71,6 +72,7 @@ void TcpServer::start()
 {
   if (started_.getAndSet(1) == 0)
   {
+	//启动创建线程池
     threadPool_->start(threadInitCallback_);
 
     assert(!acceptor_->listenning());
@@ -82,7 +84,7 @@ void TcpServer::start()
 void TcpServer::newConnection(int sockfd, const InetAddress& peerAddr)
 {
   loop_->assertInLoopThread();
-  EventLoop* ioLoop = threadPool_->getNextLoop();
+  EventLoop* ioLoop = threadPool_->getNextLoop();//从event loop poolz中挑选一个loop给新连接使用。
   char buf[64];
   snprintf(buf, sizeof buf, "-%s#%d", ipPort_.c_str(), nextConnId_);
   ++nextConnId_;

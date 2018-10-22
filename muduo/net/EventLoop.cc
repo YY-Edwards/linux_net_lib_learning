@@ -128,7 +128,7 @@ void EventLoop::loop()
     }
     currentActiveChannel_ = NULL;
     eventHandling_ = false;
-    doPendingFunctors();
+    doPendingFunctors();//调用用户回调
   }
 
   LOG_TRACE << "EventLoop " << this << " stop looping";
@@ -310,7 +310,7 @@ void EventLoop::doPendingFunctors()
 
   for (size_t i = 0; i < functors.size(); ++i)
   {
-    functors[i]();
+    functors[i]();//执行
   }
   callingPendingFunctors_ = false;
 }

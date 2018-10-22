@@ -43,7 +43,19 @@ class EPollPoller : public Poller
   void fillActiveChannels(int numEvents,
                           ChannelList* activeChannels) const;
   void update(int operation, Channel* channel);
+/*
+  typedef union epoll_data {
+		void *ptr;
+		int fd;
+		__uint32_t u32;
+		__uint64_t u64;
+	} epoll_data_t;
 
+	struct epoll_event {
+		__uint32_t events; // Epoll events 
+		epoll_data_t data; // User data variable 
+	};
+*/
   typedef std::vector<struct epoll_event> EventList;
 
   int epollfd_;

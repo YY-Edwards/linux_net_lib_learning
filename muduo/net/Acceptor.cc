@@ -26,12 +26,14 @@ using namespace muduo::net;
 
 Acceptor::Acceptor(EventLoop* loop, const InetAddress& listenAddr, bool reuseport)
   : loop_(loop),
+  //创建非阻塞的socket
     acceptSocket_(sockets::createNonblockingOrDie(listenAddr.family())),
     acceptChannel_(loop, acceptSocket_.fd()),
     listenning_(false),
     idleFd_(::open("/dev/null", O_RDONLY | O_CLOEXEC))
 {
   assert(idleFd_ >= 0);
+  //创建tcp服务端
   acceptSocket_.setReuseAddr(true);
   acceptSocket_.setReusePort(reuseport);
   acceptSocket_.bindAddress(listenAddr);
@@ -52,8 +54,11 @@ void Acceptor::listen()
 {
   loop_->assertInLoopThread();
   listenning_ = true;
-  acceptSocket_.listen();
+  acceptSocket_.listen();//监听
   //使能读，并更新通道
+  //此处会调用channel::update()
+  //然后依次的调用流程是：
+  //channel::update()->EventLoop::updateChannel()->Poller::updateChannel().
   acceptChannel_.enableReading();//最后的作用是在socket可读的时候调用Accpetor::handleRead().
 }
 
