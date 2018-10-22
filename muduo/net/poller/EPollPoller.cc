@@ -40,6 +40,9 @@ const int kDeleted = 2;
 
 EPollPoller::EPollPoller(EventLoop* loop)
   : Poller(loop),
+  //它是fd的一个标识说明，用来设置文件close-on-exec状态的。
+  //当close-on-exec状态为0时，调用exec时，fd不会被关闭；
+  //状态非零时则会被关闭，这样做可以防止fd泄露给执行exec后的进程
     epollfd_(::epoll_create1(EPOLL_CLOEXEC)),
     events_(kInitEventListSize)
 {
