@@ -68,10 +68,11 @@ EventLoop::EventLoop()
     callingPendingFunctors_(false),
     iteration_(0),
     threadId_(CurrentThread::tid()),
-    poller_(Poller::newDefaultPoller(this)),
-    timerQueue_(new TimerQueue(this)),
+    poller_(Poller::newDefaultPoller(this)),//构建Epollpoller对象->channel
+	//timerQueue使用一个channel来观察timerfd_上的readable事件。
+    timerQueue_(new TimerQueue(this)),//构建timer对象->channel
     wakeupFd_(createEventfd()),
-    wakeupChannel_(new Channel(this, wakeupFd_)),
+    wakeupChannel_(new Channel(this, wakeupFd_)),//构建wakeup对象->channel
     currentActiveChannel_(NULL)
 {
   LOG_DEBUG << "EventLoop created " << this << " in thread " << threadId_;
