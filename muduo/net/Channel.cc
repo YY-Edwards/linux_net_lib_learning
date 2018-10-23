@@ -42,6 +42,8 @@ Channel::~Channel()
   {
     assert(!loop_->hasChannel(this));
   }
+  
+  LOG_WARN << "Note: Channel exit. "
 }
 
 void Channel::tie(const boost::shared_ptr<void>& obj)

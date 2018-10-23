@@ -88,6 +88,7 @@ class ChatServer : boost::noncopyable
 
 int main(int argc, char* argv[])
 {
+  muduo::Logger::setLogLevel(Logger::TRACE);
   LOG_INFO << "pid = " << getpid();
   if (argc > 1)
   {
