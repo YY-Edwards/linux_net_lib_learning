@@ -39,7 +39,7 @@ const int kDeleted = 2;
 }
 
 EPollPoller::EPollPoller(EventLoop* loop)
-  : Poller(loop),
+  : Poller(loop),//因为是继承关系，则先调用父类的构造函数
   //它是fd的一个标识说明，用来设置文件close-on-exec状态的。
   //当close-on-exec状态为0时，调用exec时，fd不会被关闭；
   //状态非零时则会被关闭，这样做可以防止fd泄露给执行exec后的进程
@@ -147,7 +147,7 @@ void EPollPoller::updateChannel(Channel* channel)
     int fd = channel->fd();
     (void)fd;
     assert(channels_.find(fd) != channels_.end());
-    assert(channels_[fd] == channel);
+    assert(channels_[fd] == channel);//直接覆盖即可释放原先保存的指针内存（shared_ptr）
     assert(index == kAdded);
     if (channel->isNoneEvent())
     {
@@ -171,7 +171,7 @@ void EPollPoller::removeChannel(Channel* channel)
   assert(channel->isNoneEvent());
   int index = channel->index();
   assert(index == kAdded || index == kDeleted);
-  size_t n = channels_.erase(fd);
+  size_t n = channels_.erase(fd);//释放保存的指针内存（shared_ptr）
   (void)n;
   assert(n == 1);
 
