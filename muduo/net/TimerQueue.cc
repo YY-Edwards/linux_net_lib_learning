@@ -137,11 +137,12 @@ TimerQueue::~TimerQueue()
   }
 }
 
-TimerId TimerQueue::addTimer(const TimerCallback& cb,
+TimerId TimerQueue::addTimer(const TimerCallback& cb//非本线程调用
                              Timestamp when,
                              double interval)
 {
   Timer* timer = new Timer(cb, when, interval);
+   //添加到IO线程中等待被调用，线程安全的不需要锁
   loop_->runInLoop(
       boost::bind(&TimerQueue::addTimerInLoop, this, timer));
   return TimerId(timer, timer->sequence());
@@ -152,6 +153,13 @@ TimerId TimerQueue::addTimer(TimerCallback&& cb,
                              Timestamp when,
                              double interval)
 {
+	//std::move语句可以将左值变为右值而避免拷贝构造
+	/*
+	通过std::move，可以避免不必要的拷贝操作。
+	std::move是为性能而生。
+	std::move是将对象的状态或者所有权从一个对象转移到另一个对象，
+	只是转移，没有内存的搬迁或者内存拷贝。
+	*/
   Timer* timer = new Timer(std::move(cb), when, interval);
   loop_->runInLoop(
       boost::bind(&TimerQueue::addTimerInLoop, this, timer));
@@ -222,6 +230,7 @@ std::vector<TimerQueue::Entry> TimerQueue::getExpired(Timestamp now)
   assert(timers_.size() == activeTimers_.size());
   std::vector<Entry> expired;
   Entry sentry(now, reinterpret_cast<Timer*>(UINTPTR_MAX));
+  //返回第一个大于等于key_value的定位器
   TimerList::iterator end = timers_.lower_bound(sentry);
   assert(end == timers_.end() || now < end->first);//找到指定定时器，并检查当前时间小于队列里的定时器定时时间
   /*

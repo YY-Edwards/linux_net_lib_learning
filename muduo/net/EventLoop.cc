@@ -200,13 +200,13 @@ TimerId EventLoop::runEvery(double interval, const TimerCallback& cb)
 // FIXME: remove duplication
 void EventLoop::runInLoop(Functor&& cb)
 {
-  if (isInLoopThread())
+  if (isInLoopThread())//判断是否在本线程，如果是则直接调用函数
   {
     cb();
   }
   else
   {
-    queueInLoop(std::move(cb));
+    queueInLoop(std::move(cb));//否则就添加到pendingFunctors_中，等待统一调用
   }
 }
 
@@ -216,7 +216,18 @@ void EventLoop::queueInLoop(Functor&& cb)
   MutexLockGuard lock(mutex_);
   pendingFunctors_.push_back(std::move(cb));  // emplace_back
   }
+	/*
+	并且如果是其他线程就要唤醒，或者正在处于统一的调用中时需要唤醒，
+	因为此次添加的函数在此时不会立即执行，因为有两个队列，一个是pendingFunctors_，
+	另一个是执行中pendingFunctors_的副本，添加的函数在pendingFunctors中，
+	其副本不会添加，执行的是副本中的函数。
+	
+	机制类似互斥锁，但是效率更高。
+	callingPendingFunctors_：用于指示副本里的function是否执行完毕。
+	1.副本队列取数据的时候，一次性全部取出（swap），然后执行，执行完后再重置标志。
+	2.存储时，不影响正在执行的副本。互斥锁只针对队列。
 
+	*/
   if (!isInLoopThread() || callingPendingFunctors_)
   {
     wakeup();

@@ -54,18 +54,19 @@ class Timer : boost::noncopyable
   bool repeat() const { return repeat_; }
   int64_t sequence() const { return sequence_; }
 
+  //只定义了这一个函数接口
   void restart(Timestamp now);
 
   static int64_t numCreated() { return s_numCreated_.get(); }
 
  private:
-  const TimerCallback callback_;
-  Timestamp expiration_;
-  const double interval_;
-  const bool repeat_;
-  const int64_t sequence_;
+  const TimerCallback callback_;//绑定的回调函数
+  Timestamp expiration_;//指定的时间戳
+  const double interval_;//循环次数
+  const bool repeat_;//是否重复
+  const int64_t sequence_;//定时器ID
 
-  static AtomicInt64 s_numCreated_;
+  static AtomicInt64 s_numCreated_;//定时器个数
 };
 }
 }

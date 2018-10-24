@@ -15,7 +15,7 @@ AtomicInt64 Timer::s_numCreated_;
 
 void Timer::restart(Timestamp now)
 {
-  if (repeat_)
+  if (repeat_)//如果需要重复，那么时间戳更新一次
   {
     expiration_ = addTime(now, interval_);
   }
