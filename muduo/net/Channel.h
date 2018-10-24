@@ -102,11 +102,11 @@ class Channel : boost::noncopyable
   static const int kReadEvent;
   static const int kWriteEvent;
 
-  EventLoop* loop_;
-  const int  fd_;
-  int        events_;
-  int        revents_; // it's the received event types of epoll or poll
-  int        index_; // used by Poller.
+  EventLoop* loop_;//持有事件循环指针
+  const int  fd_;//持有文件描述符ID
+  int        events_;//感兴趣的事件
+  int        revents_; // it's the received event types of epoll or poll 获得的事件反馈
+  int        index_; // used by Poller.EPoller中代表当前IO活动状态，Poller中代表当前IO所在Poller文件描述符数组的下标位置
   bool       logHup_;
 
   boost::weak_ptr<void> tie_;

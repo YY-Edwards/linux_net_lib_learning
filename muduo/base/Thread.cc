@@ -37,7 +37,7 @@ namespace detail
 
 pid_t gettid()
 {
-  return static_cast<pid_t>(::syscall(SYS_gettid));
+  return static_cast<pid_t>(::syscall(SYS_gettid));//获取当前pid（系统调用）
 }
 
 void afterFork()
@@ -205,8 +205,9 @@ void Thread::start()
   assert(!started_);
   started_ = true;
   // FIXME: move(func_)
+  //每一个线程对象调用一个ThreadData，主要用于解耦，方便方法和数据绑定后传输
   detail::ThreadData* data = new detail::ThreadData(func_, name_, &tid_, &latch_);
-  if (pthread_create(&pthreadId_, NULL, &detail::startThread, data))
+  if (pthread_create(&pthreadId_, NULL, &detail::startThread, data))//创建线程，将ThreadData进行绑定
   {
     started_ = false;
     delete data; // or no delete?

@@ -173,13 +173,23 @@ void TimerQueue::cancel(TimerId timerId)
       boost::bind(&TimerQueue::cancelInLoop, this, timerId));
 }
 
+/*
+
+涉及到定时器的操作添加删除都是由创建定时器的那个IO线程进行，
+而其他线程需要添加定时器时，
+需要将其设置为事件使得IO线程进行添加删除操作
+
+*/
 void TimerQueue::addTimerInLoop(Timer* timer)
 {
   loop_->assertInLoopThread();
+  //增加到定时器集合和活跃的定时器集合中，
+  //如果时间比之前已有定时器短则返回True。
   bool earliestChanged = insert(timer);
 
   if (earliestChanged)
   {
+	//当前时间需要修改时，更改定时器IO的时间 
     resetTimerfd(timerfd_, timer->expiration());
   }
 }
@@ -188,16 +198,16 @@ void TimerQueue::cancelInLoop(TimerId timerId)
 {
   loop_->assertInLoopThread();
   assert(timers_.size() == activeTimers_.size());
-  ActiveTimer timer(timerId.timer_, timerId.sequence_);
-  ActiveTimerSet::iterator it = activeTimers_.find(timer);
+  ActiveTimer timer(timerId.timer_, timerId.sequence_);//转换为Timer
+  ActiveTimerSet::iterator it = activeTimers_.find(timer);//查找到活跃定时器指针
   if (it != activeTimers_.end())
   {
-    size_t n = timers_.erase(Entry(it->first->expiration(), it->first));
+    size_t n = timers_.erase(Entry(it->first->expiration(), it->first));//删除定时器集合中的Timer
     assert(n == 1); (void)n;
-    delete it->first; // FIXME: no delete please
-    activeTimers_.erase(it);
+    delete it->first; // FIXME: no delete please释放Timer
+    activeTimers_.erase(it);//删除活跃定时器中Timer
   }
-  else if (callingExpiredTimers_)
+  else if (callingExpiredTimers_)//正在调用过期定时器时，添加进cancelingTimers
   {
     cancelingTimers_.insert(timer);
   }
@@ -208,30 +218,39 @@ void TimerQueue::handleRead()
 {
   loop_->assertInLoopThread();
   Timestamp now(Timestamp::now());
-  readTimerfd(timerfd_, now);
+  readTimerfd(timerfd_, now);//读取事件，如果不读取由于Epoll水平触发会导致一直有IO事件产生
 
   std::vector<Entry> expired = getExpired(now);//找到到期的定时器并移除
 
-  callingExpiredTimers_ = true;
-  cancelingTimers_.clear();
+  callingExpiredTimers_ = true;//设置当前状态为调用定时器函数中
+  cancelingTimers_.clear();//清空删除的定时器
   // safe to callback outside critical section
   for (std::vector<Entry>::iterator it = expired.begin();
       it != expired.end(); ++it)
   {
-    it->second->run();
+    it->second->run();//执行定时器绑定的函数
   }
   callingExpiredTimers_ = false;
 
-  reset(expired, now);
+  reset(expired, now);//如果有时间间隔的定时器需要重新添加进定时器
 }
 
 std::vector<TimerQueue::Entry> TimerQueue::getExpired(Timestamp now)
 {
   assert(timers_.size() == activeTimers_.size());
   std::vector<Entry> expired;
+  
   Entry sentry(now, reinterpret_cast<Timer*>(UINTPTR_MAX));
-  //返回第一个大于等于key_value的定位器
+  //新建一个当前时间定时器,
+  //用UINTPTR_MAX原因是默认排序
+  //如果时间相等则地址大小排序，取最大防止漏掉定时器
+  
+  //返回第一个>=sentry的定时器,没有等于的，那会返回第一个大于sentry的值
+  //使用指针找到当前时间最后一个定时器(第一个>=sentry的定时器)
   TimerList::iterator end = timers_.lower_bound(sentry);
+  //这里断言判断，保证当前时间时小于找到的第一个>=sentry的定时器。
+  //因为逻辑上，到期定时器先发生，然后生成一个当前时间定时器(sentry)，时间肯定大于之前到期的定时器，
+  //然后查询定时器列表后，返回第一个>=sentry的定时器。如果找到，先去要滤掉刚好等于的那个定时器，理论上这应该还未发生。
   assert(end == timers_.end() || now < end->first);//找到指定定时器，并检查当前时间小于队列里的定时器定时时间
   /*
   
@@ -247,19 +266,22 @@ std::vector<TimerQueue::Entry> TimerQueue::getExpired(Timestamp now)
   某些vector的实现在调用clear的时候甚至会释放所有内存。
   copy只负责复制，不负责申请空间，所以复制前必须有足够的空间。
   */
+  
+  //将开始到现在的定时器复制到expired返回，end之前不包括end。
   std::copy(timers_.begin(), end, back_inserter(expired));
-  timers_.erase(timers_.begin(), end);
+  timers_.erase(timers_.begin(), end);//删除这一范围定时器
 
   for (std::vector<Entry>::iterator it = expired.begin();
       it != expired.end(); ++it)
   {
+	//组装成定时器
     ActiveTimer timer(it->second, it->second->sequence());
-    size_t n = activeTimers_.erase(timer);
+    size_t n = activeTimers_.erase(timer);//删除活动定时器列表中的定时器
     assert(n == 1); (void)n;
   }
 
   assert(timers_.size() == activeTimers_.size());
-  return expired;
+  return expired;//所有到期的定时器返回
 }
 
 void TimerQueue::reset(const std::vector<Entry>& expired, Timestamp now)

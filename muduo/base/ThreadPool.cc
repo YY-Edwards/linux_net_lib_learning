@@ -44,7 +44,7 @@ void ThreadPool::start(int numThreads)
           boost::bind(&ThreadPool::runInThread, this), name_+id));
     threads_[i].start();
   }
-  if (numThreads == 0 && threadInitCallback_)
+  if (numThreads == 0 && threadInitCallback_)//如果没有线程，同时指定了函数，则执行
   {
     threadInitCallback_();
   }
@@ -53,9 +53,9 @@ void ThreadPool::start(int numThreads)
 void ThreadPool::stop()
 {
   {
-  MutexLockGuard lock(mutex_);
+  MutexLockGuard lock(mutex_);//上锁，配合条件变量通知其他线程
   running_ = false;
-  notEmpty_.notifyAll();
+  notEmpty_.notifyAll();//通知所有线程执行join
   }
   for_each(threads_.begin(),
            threads_.end(),
@@ -72,11 +72,11 @@ void ThreadPool::run(const Task& task)
 {
   if (threads_.empty())
   {
-    task();
+    task();//当前线程执行函数
   }
   else
   {
-    MutexLockGuard lock(mutex_);
+    MutexLockGuard lock(mutex_);//生产者消费者问题
     while (isFull())
     {
       notFull_.wait();
@@ -84,7 +84,7 @@ void ThreadPool::run(const Task& task)
     assert(!isFull());
 
     queue_.push_back(task);
-    notEmpty_.notify();
+    notEmpty_.notify();//只通知一个线程即可
   }
 }
 
@@ -141,13 +141,13 @@ void ThreadPool::runInThread()
 {
   try
   {
-    if (threadInitCallback_)
+    if (threadInitCallback_)//注册了初始化函数
     {
       threadInitCallback_();
     }
     while (running_)
     {
-      Task task(take());
+      Task task(take());//取出任务，进行消费
       if (task)
       {
         task();

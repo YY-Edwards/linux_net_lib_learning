@@ -112,6 +112,7 @@ int main(int argc, char* argv[])
   if (argc > 1)
   {
     EventLoop loop;
+	//多个IO线程可以用IO线程池来管理，对应的类是EventLoopThreadPool 
     uint16_t port = static_cast<uint16_t>(atoi(argv[1]));
     InetAddress serverAddr(port);
     ChatServer server(&loop, serverAddr);

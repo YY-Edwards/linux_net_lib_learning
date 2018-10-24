@@ -92,6 +92,8 @@ int main(int argc, char* argv[])
   LOG_INFO << "pid = " << getpid();
   if (argc > 1)
   {
+ //任何一个线程，只要创建并运行了EventLoop，都称之为IO线程
+ //IO线程不一定是主线程
     EventLoop loop;
     uint16_t port = static_cast<uint16_t>(atoi(argv[1]));
     InetAddress serverAddr(port);

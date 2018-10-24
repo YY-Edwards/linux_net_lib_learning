@@ -52,13 +52,13 @@ class ThreadPool : boost::noncopyable
   void runInThread();
   Task take();
 
-  mutable MutexLock mutex_;
-  Condition notEmpty_;
+  mutable MutexLock mutex_;//mutable在const函数中表示可以更改，是因为要上锁解锁修改状态
+  Condition notEmpty_;//有界阻塞队列通用手法
   Condition notFull_;
   string name_;
   Task threadInitCallback_;
-  boost::ptr_vector<muduo::Thread> threads_;
-  std::deque<Task> queue_;
+  boost::ptr_vector<muduo::Thread> threads_;//指针容器，储存指向线程的指针
+  std::deque<Task> queue_;//任务队列
   size_t maxQueueSize_;
   bool running_;
 };

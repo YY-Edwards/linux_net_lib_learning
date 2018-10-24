@@ -21,9 +21,9 @@ namespace muduo
 class Thread : boost::noncopyable
 {
  public:
-  typedef boost::function<void ()> ThreadFunc;
+  typedef boost::function<void ()> ThreadFunc;//无参数无返回线程函数
 
-  explicit Thread(const ThreadFunc&, const string& name = string());
+  explicit Thread(const ThreadFunc&, const string& name = string());//别名防止拷贝函数
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
   explicit Thread(ThreadFunc&&, const string& name = string());
 #endif
@@ -48,9 +48,9 @@ class Thread : boost::noncopyable
   pid_t      tid_;
   ThreadFunc func_;
   string     name_;
-  CountDownLatch latch_;
+  CountDownLatch latch_;//用于多线程等待满足条件后同时工作
 
-  static AtomicInt32 numCreated_;
+  static AtomicInt32 numCreated_;//原子计数器，记录线程个数
 };
 
 }

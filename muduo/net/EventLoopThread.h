@@ -32,7 +32,7 @@ class EventLoopThread : boost::noncopyable
   EventLoopThread(const ThreadInitCallback& cb = ThreadInitCallback(),
                   const string& name = string());
   ~EventLoopThread();
-  EventLoop* startLoop();
+  EventLoop* startLoop();// 启动线程，该线程就成为了IO线程
 
  private:
   void threadFunc();

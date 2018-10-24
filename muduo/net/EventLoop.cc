@@ -129,6 +129,17 @@ void EventLoop::loop()
     }
     currentActiveChannel_ = NULL;
     eventHandling_ = false;
+	
+	
+	/*
+	
+	这是callingPendingFunctors_（计算处理），因为服务器一般分为两个过程，IO处理，cpu处理，
+	前者用于IO相关事件处理，后者用于计算时间比较长的相关事件处理，
+	两者分开更适合分布式网络的一般情况（高IO，低延迟，快速计算，分布集群等等）
+		
+	*/
+	
+	
     doPendingFunctors();//调用用户回调
   }
 
@@ -312,12 +323,12 @@ void EventLoop::handleRead()
 
 void EventLoop::doPendingFunctors()
 {
-  std::vector<Functor> functors;
+  std::vector<Functor> functors;//任务副本，防止任务调用queueInLoop陷入死循环
   callingPendingFunctors_ = true;
 
   {
-  MutexLockGuard lock(mutex_);
-  functors.swap(pendingFunctors_);
+  MutexLockGuard lock(mutex_);//加锁取出任务到副本，并清空任务队列
+  functors.swap(pendingFunctors_);//之所以局部加锁是因为防止任务调用queueInLoop陷入死锁
   }
 
   for (size_t i = 0; i < functors.size(); ++i)
