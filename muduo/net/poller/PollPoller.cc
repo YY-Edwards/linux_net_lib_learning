@@ -22,7 +22,7 @@ using namespace muduo::net;
 PollPoller::PollPoller(EventLoop* loop)
   : Poller(loop)
 {
-	LOG_TRACE << "init PollPoller"
+	LOG_TRACE << "init PollPoller";
 }
 
 PollPoller::~PollPoller()

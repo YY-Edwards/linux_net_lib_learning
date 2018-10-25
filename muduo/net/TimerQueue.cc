@@ -137,7 +137,7 @@ TimerQueue::~TimerQueue()
   }
 }
 
-TimerId TimerQueue::addTimer(const TimerCallback& cb//非本线程调用
+TimerId TimerQueue::addTimer(const TimerCallback& cb,//非本线程调用
                              Timestamp when,
                              double interval)
 {

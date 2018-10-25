@@ -25,11 +25,16 @@ class LengthHeaderCodec : boost::noncopyable
                  muduo::net::Buffer* buf,
                  muduo::Timestamp receiveTime)
   {
+	 //读完为止？
     while (buf->readableBytes() >= kHeaderLen) // kHeaderLen == 4
     {
       // FIXME: use Buffer::peekInt32()
       const void* data = buf->peek();
       int32_t be32 = *static_cast<const int32_t*>(data); // SIGBUS
+	  //这里这样获取消息长度，是根据自定义协议解析而成的。
+	  //因为消息头有个长度字段，解析出来才知道具体的消息长度是多少。
+	  //所以才有如下的算法转换出长度。
+	  //即是读出前四个字节的数据，然后排序得到结果。
       const int32_t len = muduo::net::sockets::networkToHost32(be32);
       if (len > 65536 || len < 0)
       {
@@ -39,10 +44,11 @@ class LengthHeaderCodec : boost::noncopyable
       }
       else if (buf->readableBytes() >= len + kHeaderLen)
       {
-        buf->retrieve(kHeaderLen);
+        buf->retrieve(kHeaderLen);//从kHeaderLen后开始检索正在的数据
         muduo::string message(buf->peek(), len);
+		//调用server的onStringMessage()接口
         messageCallback_(conn, message, receiveTime);
-        buf->retrieve(len);
+        buf->retrieve(len);//可读指针偏移，即向后检索
       }
       else
       {

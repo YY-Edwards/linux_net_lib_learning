@@ -65,6 +65,7 @@ class ChatServer : boost::noncopyable
         it != connections_.end();
         ++it)
     {
+	  
       codec_.send(get_pointer(*it), message);
     }
   }

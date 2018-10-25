@@ -50,7 +50,7 @@ EPollPoller::EPollPoller(EventLoop* loop)
   {
     LOG_SYSFATAL << "EPollPoller::EPollPoller";
   }
-  LOG_TRACE << "init EPollPoller"
+  LOG_TRACE << "init EPollPoller";
 }
 
 EPollPoller::~EPollPoller()
