@@ -48,7 +48,7 @@ class IgnoreSigPipe
   IgnoreSigPipe()
   {
     ::signal(SIGPIPE, SIG_IGN);
-    // LOG_TRACE << "Ignore SIGPIPE";
+     LOG_TRACE << "Ignore SIGPIPE";
   }
 };
 #pragma GCC diagnostic error "-Wold-style-cast"
@@ -60,6 +60,17 @@ EventLoop* EventLoop::getEventLoopOfCurrentThread()
 {
   return t_loopInThisThread;
 }
+
+
+/*
+
+每个Reactor 的 EventLoop 对象构造时，默认使用的是EPollPoller，即EPollPoller::epollfd_ ;
+此外还有两个channel（EventLoop::timeQueue_ ::timerfd_ 和 EventLoop::wakeupFd_ ）
+处于被poll()关注可读事件的状态，而且是一直关注直到事件循环结束。
+即每个Reactor 都分别有这3个fd;
+
+
+*/
 
 EventLoop::EventLoop()
   : looping_(false),
@@ -161,11 +172,12 @@ void EventLoop::quit()
 
 void EventLoop::runInLoop(const Functor& cb)
 {
+ //如果在当前IO线程调用这个函数，那么会立即同步执行
   if (isInLoopThread())
   {
     cb();
   }
-  else
+  else//如果是其他线程调用，函数会被加入队列，然后等待IO线程唤醒来调用
   {
     queueInLoop(cb);
   }
@@ -177,7 +189,7 @@ void EventLoop::queueInLoop(const Functor& cb)
   MutexLockGuard lock(mutex_);
   pendingFunctors_.push_back(cb);
   }
-
+	//只有在IO线程的事件回调中调用queueInLoop()才不用唤醒
   if (!isInLoopThread() || callingPendingFunctors_)
   {
     wakeup();
@@ -192,12 +204,12 @@ size_t EventLoop::queueSize() const
 
 TimerId EventLoop::runAt(const Timestamp& time, const TimerCallback& cb)
 {
-  return timerQueue_->addTimer(cb, time, 0.0);
+  return timerQueue_->addTimer(cb, time, 0.0);//不循环，仅调用一次
 }
 
 TimerId EventLoop::runAfter(double delay, const TimerCallback& cb)
 {
-  Timestamp time(addTime(Timestamp::now(), delay));
+  Timestamp time(addTime(Timestamp::now(), delay));//计算新的到期时间戳
   return runAt(time, cb);
 }
 
@@ -211,7 +223,7 @@ TimerId EventLoop::runEvery(double interval, const TimerCallback& cb)
 // FIXME: remove duplication
 void EventLoop::runInLoop(Functor&& cb)
 {
-  if (isInLoopThread())//判断是否在本线程，如果是则直接调用函数
+  if (isInLoopThread())//判断是否在本线程内调用，如果是则直接调用函数
   {
     cb();
   }

@@ -141,7 +141,7 @@ void CurrentThread::cacheTid()
 
 bool CurrentThread::isMainThread()
 {
-  return tid() == ::getpid();
+  return tid() == ::getpid();//进程pid
 }
 
 void CurrentThread::sleepUsec(int64_t usec)

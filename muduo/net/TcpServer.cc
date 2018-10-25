@@ -21,6 +21,7 @@
 using namespace muduo;
 using namespace muduo::net;
 
+
 TcpServer::TcpServer(EventLoop* loop,
                      const InetAddress& listenAddr,
                      const string& nameArg,
@@ -84,7 +85,7 @@ void TcpServer::start()
 void TcpServer::newConnection(int sockfd, const InetAddress& peerAddr)
 {
   loop_->assertInLoopThread();
-  EventLoop* ioLoop = threadPool_->getNextLoop();//从event loop poolz中挑选一个loop给新连接使用。
+  EventLoop* ioLoop = threadPool_->getNextLoop();//从event loop pool中挑选一个loop给新连接使用。
   char buf[64];
   snprintf(buf, sizeof buf, "-%s#%d", ipPort_.c_str(), nextConnId_);
   ++nextConnId_;

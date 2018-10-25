@@ -45,6 +45,7 @@ EventLoop* EventLoopThread::startLoop()
   //thread_(boost::bind(&EventLoopThread::threadFunc, this), name)
   //构造的时候将函数接口传递进去
   thread_.start();//调用pthread_create
+  LOG_TRACE <<"create and start EventLoopThread::threadFunc";
 //启动线程，此时有两个线程在运行，
 //一个是调用EventLoopThread::startLoop()的线程，
 //一个是执行EventLoopThread::threadFunc()的线程（IO线程）.
@@ -63,7 +64,7 @@ void EventLoopThread::threadFunc()
 {
   EventLoop loop;
 
-  if (callback_)//如果有回调，则执行回调
+  if (callback_)//如果有回调，则先执行回调
   {
     callback_(&loop);
   }

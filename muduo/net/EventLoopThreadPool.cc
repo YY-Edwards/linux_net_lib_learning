@@ -44,8 +44,9 @@ void EventLoopThreadPool::start(const ThreadInitCallback& cb)
   {
     char buf[name_.size() + 32];
     snprintf(buf, sizeof buf, "%s%d", name_.c_str(), i);
-    EventLoopThread* t = new EventLoopThread(cb, buf);
-    threads_.push_back(t);
+    EventLoopThread* t = new EventLoopThread(cb, buf);//构建一个线程对象
+    threads_.push_back(t);//这个vector只能自己拥有？
+	//启动EventLoopThread线程，在进入事件循环之前，会调用cb
     loops_.push_back(t->startLoop());//启动线程，其中调用cb?
   }
   if (numThreads_ == 0 && cb)//单线程模式的情况下

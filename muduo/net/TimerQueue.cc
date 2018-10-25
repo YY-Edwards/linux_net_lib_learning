@@ -160,7 +160,7 @@ TimerId TimerQueue::addTimer(TimerCallback&& cb,
 	std::move是将对象的状态或者所有权从一个对象转移到另一个对象，
 	只是转移，没有内存的搬迁或者内存拷贝。
 	*/
-  Timer* timer = new Timer(std::move(cb), when, interval);
+  Timer* timer = new Timer(std::move(cb), when, interval);//构建新的timer对象
   loop_->runInLoop(
       boost::bind(&TimerQueue::addTimerInLoop, this, timer));
   return TimerId(timer, timer->sequence());
@@ -267,6 +267,8 @@ std::vector<TimerQueue::Entry> TimerQueue::getExpired(Timestamp now)
   copy只负责复制，不负责申请空间，所以复制前必须有足够的空间。
   */
   
+  LOG_TRACE << "find the timer. " ;
+  
   //将开始到现在的定时器复制到expired返回，end之前不包括end。
   std::copy(timers_.begin(), end, back_inserter(expired));
   timers_.erase(timers_.begin(), end);//删除这一范围定时器
@@ -323,6 +325,7 @@ bool TimerQueue::insert(Timer* timer)
   bool earliestChanged = false;
   Timestamp when = timer->expiration();
   TimerList::iterator it = timers_.begin();
+   //如果时间比之前已有定时器短则返回True。
   if (it == timers_.end() || when < it->first)
   {
     earliestChanged = true;
