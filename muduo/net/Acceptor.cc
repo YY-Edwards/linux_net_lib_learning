@@ -30,7 +30,7 @@ Acceptor::Acceptor(EventLoop* loop, const InetAddress& listenAddr, bool reusepor
     acceptSocket_(sockets::createNonblockingOrDie(listenAddr.family())),
     acceptChannel_(loop, acceptSocket_.fd()),
     listenning_(false),
-    idleFd_(::open("/dev/null", O_RDONLY | O_CLOEXEC))
+    idleFd_(::open("/dev/null", O_RDONLY | O_CLOEXEC))//不懂事干什么用的
 {
   assert(idleFd_ >= 0);
   //创建tcp服务端
@@ -41,6 +41,8 @@ Acceptor::Acceptor(EventLoop* loop, const InetAddress& listenAddr, bool reusepor
   //即是当此通道发送可读事件时，会调用Acceptor的handleRead()接口
   acceptChannel_.setReadCallback(
       boost::bind(&Acceptor::handleRead, this));
+	  
+  LOG_TRACE << "init Acceptor, Accpetor_fd =  " << acceptSocket_.fd()  << ", idleFd = " << idleFd_;
 }
 
 Acceptor::~Acceptor()
