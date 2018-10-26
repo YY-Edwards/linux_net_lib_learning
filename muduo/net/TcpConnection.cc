@@ -325,6 +325,12 @@ void TcpConnection::connectEstablished()
   loop_->assertInLoopThread();
   assert(state_ == kConnecting);
   setState(kConnected);
+  
+  /*
+	shared_from_this()  会用当前对象的裸指针构造一个临时智能指针对象，
+	引用计数加1，但马上会被析构，又减1，故无论调用多少次，对引用计数都没有影响。
+ 
+  */
   channel_->tie(shared_from_this());
   /*
   此处会更新通道，并将新链接通道加入map表中

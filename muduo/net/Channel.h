@@ -109,6 +109,8 @@ class Channel : boost::noncopyable
   int        index_; // used by Poller.EPoller中代表当前IO活动状态，Poller中代表当前IO所在Poller文件描述符数组的下标位置
   bool       logHup_;
 
+  //weak_ptr的一个重要用途是获得this指针的shared_ptr, 使对象
+  //自己能够生产shared_ptr管理自己。
   boost::weak_ptr<void> tie_;
   bool tied_;
   bool eventHandling_;

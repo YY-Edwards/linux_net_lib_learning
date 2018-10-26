@@ -76,6 +76,7 @@ void Acceptor::handleRead()
     // LOG_TRACE << "Accepts of " << hostport;
     if (newConnectionCallback_)
     {
+	  LOG_TRACE<<"Accept okay, and establish the connection by server ";
       newConnectionCallback_(connfd, peerAddr);
     }
     else

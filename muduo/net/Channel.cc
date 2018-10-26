@@ -48,7 +48,7 @@ Channel::~Channel()
 
 void Channel::tie(const boost::shared_ptr<void>& obj)
 {
-  tie_ = obj;
+  tie_ = obj;//首先是弱指针，观察
   tied_ = true;
 }
 
@@ -70,7 +70,7 @@ void Channel::handleEvent(Timestamp receiveTime)
   boost::shared_ptr<void> guard;
   if (tied_)
   {
-    guard = tie_.lock();
+    guard = tie_.lock();//weak_ptr获得可用的shared_ptr对象
     if (guard)
     {
       handleEventWithGuard(receiveTime);
