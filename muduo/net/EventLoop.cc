@@ -179,6 +179,7 @@ void EventLoop::runInLoop(const Functor& cb)
   }
   else//如果是其他线程调用，函数会被加入队列，然后等待IO线程唤醒来调用
   {
+	LOG_TRACE<<"Sorry, it is not in current thread !";
     queueInLoop(cb);
   }
 }

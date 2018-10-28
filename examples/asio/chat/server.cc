@@ -30,6 +30,7 @@ class ChatServer : boost::noncopyable
   : server_(loop, listenAddr, "ChatServer"),
     codec_(boost::bind(&ChatServer::onStringMessage, this, _1, _2, _3))
   {
+	//在TcpConnection::connectEstablished()最后回调用户注册的函数
     server_.setConnectionCallback(
         boost::bind(&ChatServer::onConnection, this, _1));
 	//将onMessage注册到相应的Channel;	

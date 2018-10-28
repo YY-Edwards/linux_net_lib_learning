@@ -26,10 +26,12 @@ class LengthHeaderCodec : boost::noncopyable
                  muduo::Timestamp receiveTime)
   {
 	 //读完为止？
+	 LOG_TRACE<<"Callback onMessage.";
     while (buf->readableBytes() >= kHeaderLen) // kHeaderLen == 4
     {
       // FIXME: use Buffer::peekInt32()
-      const void* data = buf->peek();
+	  LOG_TRACE<<"recv data: "<< ;
+      const void* data = buf->peek();//当前可读的起始索引
       int32_t be32 = *static_cast<const int32_t*>(data); // SIGBUS
 	  //这里这样获取消息长度，是根据自定义协议解析而成的。
 	  //因为消息头有个长度字段，解析出来才知道具体的消息长度是多少。

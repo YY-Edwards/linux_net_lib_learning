@@ -108,6 +108,7 @@ void TcpServer::newConnection(int sockfd, const InetAddress& peerAddr)
   conn->setWriteCompleteCallback(writeCompleteCallback_);
   conn->setCloseCallback(
       boost::bind(&TcpServer::removeConnection, this, _1)); // FIXME: unsafe
+	  //但是为什么一定要在runInLoop()中执行，没明白。
   ioLoop->runInLoop(boost::bind(&TcpConnection::connectEstablished, conn));
 }
 
@@ -126,6 +127,7 @@ void TcpServer::removeConnectionInLoop(const TcpConnectionPtr& conn)
   (void)n;
   assert(n == 1);
   EventLoop* ioLoop = conn->getLoop();
+  //话说一定用下面的接口，否则会出现对象生命期管理问题？
   ioLoop->queueInLoop(
       boost::bind(&TcpConnection::connectDestroyed, conn));
 }

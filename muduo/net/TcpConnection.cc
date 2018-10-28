@@ -67,6 +67,8 @@ TcpConnection::TcpConnection(EventLoop* loop,
 
 TcpConnection::~TcpConnection()
 {
+	
+//持有socket_(new Socket(sockfd)),析构 的时候再调用Socket的析构关闭描述符
   LOG_DEBUG << "TcpConnection::dtor[" <<  name_ << "] at " << this
             << " fd=" << channel_->fd()
             << " state=" << stateToString();
@@ -115,6 +117,7 @@ void TcpConnection::send(Buffer* buf)
 {
   if (state_ == kConnected)
   {
+	LOG_TRACE<<"Callback  TcpConnection::send(Buffer* buf) .";  
     if (loop_->isInLoopThread())
     {
       sendInLoop(buf->peek(), buf->readableBytes());
@@ -150,12 +153,14 @@ void TcpConnection::sendInLoop(const void* data, size_t len)
   // if no thing in output queue, try writing directly
   if (!channel_->isWriting() && outputBuffer_.readableBytes() == 0)
   {
+	LOG_TRACE << "sendInLoop, try writing directly ";  
     nwrote = sockets::write(channel_->fd(), data, len);
     if (nwrote >= 0)
     {
       remaining = len - nwrote;
-      if (remaining == 0 && writeCompleteCallback_)
+      if (remaining == 0 && writeCompleteCallback_)//一次性写完了，就回调
       {
+		//test11.cc的chargen服务使用了次回调：￥7.1
         loop_->queueInLoop(boost::bind(writeCompleteCallback_, shared_from_this()));
       }
     }
@@ -174,19 +179,19 @@ void TcpConnection::sendInLoop(const void* data, size_t len)
   }
 
   assert(remaining <= len);
-  if (!faultError && remaining > 0)
+  if (!faultError && remaining > 0)//如没有写完
   {
     size_t oldLen = outputBuffer_.readableBytes();
     if (oldLen + remaining >= highWaterMark_
         && oldLen < highWaterMark_
         && highWaterMarkCallback_)
-    {
+    {//如果输出缓冲的长度太大了超过highWaterMark_
       loop_->queueInLoop(boost::bind(highWaterMarkCallback_, shared_from_this(), oldLen + remaining));
     }
     outputBuffer_.append(static_cast<const char*>(data)+nwrote, remaining);
     if (!channel_->isWriting())
     {
-      channel_->enableWriting();
+      channel_->enableWriting();//并关注可写事件
     }
   }
 }
@@ -331,6 +336,8 @@ void TcpConnection::connectEstablished()
 	引用计数加1，但马上会被析构，又减1，故无论调用多少次，对引用计数都没有影响。
  
   */
+  //用以延长TcpConnection生命周期的？
+  LOG_TRACE<<"channel_->tie the TcpConnection.";
   channel_->tie(shared_from_this());
   /*
   此处会更新通道，并将新链接通道加入map表中
@@ -356,6 +363,7 @@ void TcpConnection::handleRead(Timestamp receiveTime)
 {
   loop_->assertInLoopThread();
   int savedErrno = 0;
+  LOG_TRACE<<"Callback TcpConnection::handleRead.";
   //底层调用readv
   ssize_t n = inputBuffer_.readFd(channel_->fd(), &savedErrno);
   if (n > 0)
@@ -396,14 +404,14 @@ void TcpConnection::handleWrite()
       outputBuffer_.retrieve(n);
       if (outputBuffer_.readableBytes() == 0)
       {
-        channel_->disableWriting();
+        channel_->disableWriting();//写完则停止关注可写事件
         if (writeCompleteCallback_)
         {
           loop_->queueInLoop(boost::bind(writeCompleteCallback_, shared_from_this()));
         }
         if (state_ == kDisconnecting)
         {
-          shutdownInLoop();
+          shutdownInLoop();//如此时正在关闭，那么shutdown
         }
       }
     }
@@ -435,7 +443,8 @@ void TcpConnection::handleClose()
   TcpConnectionPtr guardThis(shared_from_this());
   connectionCallback_(guardThis);
   // must be the last line
-  closeCallback_(guardThis);
+  closeCallback_(guardThis);//主要是执行这个接口？
+  //绑定到了TcpServer::removeConnection
 }
 
 void TcpConnection::handleError()

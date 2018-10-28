@@ -70,8 +70,9 @@ void Channel::handleEvent(Timestamp receiveTime)
   boost::shared_ptr<void> guard;
   if (tied_)
   {
+	 //Channel::tie()延长了TcpConnection的生命周期，可以保证 Channel::handleEvent()完全执行
     guard = tie_.lock();//weak_ptr获得可用的shared_ptr对象
-    if (guard)
+    if (guard)//如果对象还存在的话
     {
       handleEventWithGuard(receiveTime);
     }
