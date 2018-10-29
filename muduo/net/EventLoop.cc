@@ -78,7 +78,7 @@ EventLoop::EventLoop()
     eventHandling_(false),
     callingPendingFunctors_(false),
     iteration_(0),
-    threadId_(CurrentThread::tid()),
+    threadId_(CurrentThread::tid()),//构造函数里通过此标志记住loop所属线程
     poller_(Poller::newDefaultPoller(this)),//构建Epollpoller对象观察所有描述符注册的事件
 	//（TcpServer）再通过Acceptor->channel
 	//timerQueue使用一个channel来观察timerfd_上的readable事件。
@@ -179,6 +179,8 @@ void EventLoop::runInLoop(const Functor& cb)
     cb();
   }
   else//如果是其他线程调用，函数会被加入队列，然后等待IO线程唤醒来调用
+  //这里这个接口还有个用处，当用户想在某个IO线程中执行超时回调，此时会涉及跨线程的
+  //安全问题，在不加锁的情况下，把对timerqueue的操作转移到IO线程来执行。
   {
 	LOG_TRACE<<"Sorry, it is not in current thread !";
     queueInLoop(cb);
