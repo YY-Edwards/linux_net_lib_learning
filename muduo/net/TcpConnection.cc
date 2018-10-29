@@ -47,7 +47,7 @@ TcpConnection::TcpConnection(EventLoop* loop,
     state_(kConnecting),
     reading_(true),
     socket_(new Socket(sockfd)),
-    channel_(new Channel(loop, sockfd)),
+    channel_(new Channel(loop, sockfd)),//将新增的通道注册到指定loop中
     localAddr_(localAddr),
     peerAddr_(peerAddr),
     highWaterMark_(64*1024*1024)
@@ -340,7 +340,7 @@ void TcpConnection::connectEstablished()
   LOG_TRACE<<"channel_->tie the TcpConnection.";
   channel_->tie(shared_from_this());
   /*
-  此处会更新通道，并将新链接通道加入map表中
+  此处会更新通道，并将新链接通道加入map表中。
   */
   channel_->enableReading();
   connectionCallback_(shared_from_this());

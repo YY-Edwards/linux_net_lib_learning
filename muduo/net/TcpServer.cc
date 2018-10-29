@@ -97,7 +97,7 @@ void TcpServer::newConnection(int sockfd, const InetAddress& peerAddr)
   InetAddress localAddr(sockets::getLocalAddr(sockfd));
   // FIXME poll with zero timeout to double confirm the new connection
   // FIXME use make_shared if necessary
-  TcpConnectionPtr conn(new TcpConnection(ioLoop,
+  TcpConnectionPtr conn(new TcpConnection(ioLoop,//获得的loop,传递下去
                                           connName,
                                           sockfd,
                                           localAddr,
@@ -108,7 +108,12 @@ void TcpServer::newConnection(int sockfd, const InetAddress& peerAddr)
   conn->setWriteCompleteCallback(writeCompleteCallback_);
   conn->setCloseCallback(
       boost::bind(&TcpServer::removeConnection, this, _1)); // FIXME: unsafe
-	  //但是为什么一定要在runInLoop()中执行，没明白。
+	  //但是为什么一定要在runInLoop()中执行，没明白,是下面这个原因？
+	  /*
+	  注意此处每一个连接绑定一个通道（成员变量），每一个通道绑定一个eventloop(构造函数初始化的时候已传递的参数).
+	  首先更新channel需要关心的事件，随即调用eventloop中的update，
+	  然后再调用poller的updateChannel(每一个loop绑定一个poller),将描述符注册到指定的loop的poller中
+	  */
   ioLoop->runInLoop(boost::bind(&TcpConnection::connectEstablished, conn));
 }
 

@@ -79,7 +79,8 @@ EventLoop::EventLoop()
     callingPendingFunctors_(false),
     iteration_(0),
     threadId_(CurrentThread::tid()),
-    poller_(Poller::newDefaultPoller(this)),//构建Epollpoller对象->再通过Acceptor->channel
+    poller_(Poller::newDefaultPoller(this)),//构建Epollpoller对象观察所有描述符注册的事件
+	//（TcpServer）再通过Acceptor->channel
 	//timerQueue使用一个channel来观察timerfd_上的readable事件。
     timerQueue_(new TimerQueue(this)),//构建timer对象->channel
     wakeupFd_(createEventfd()),
