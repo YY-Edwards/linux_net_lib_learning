@@ -24,12 +24,12 @@ using namespace muduo::net;
 
 // On Linux, the constants of poll(2) and epoll(4)
 // are expected to be the same.
-BOOST_STATIC_ASSERT(EPOLLIN == POLLIN);
-BOOST_STATIC_ASSERT(EPOLLPRI == POLLPRI);
-BOOST_STATIC_ASSERT(EPOLLOUT == POLLOUT);
-BOOST_STATIC_ASSERT(EPOLLRDHUP == POLLRDHUP);
+BOOST_STATIC_ASSERT(EPOLLIN == POLLIN);//可读（包括对端正常关闭）
+BOOST_STATIC_ASSERT(EPOLLPRI == POLLPRI);//带外数据可读
+BOOST_STATIC_ASSERT(EPOLLOUT == POLLOUT);//可写
+BOOST_STATIC_ASSERT(EPOLLRDHUP == POLLRDHUP);//2.6.7版本内核中增加EPOLLRDHUP事件，表示对端断开连接
 BOOST_STATIC_ASSERT(EPOLLERR == POLLERR);
-BOOST_STATIC_ASSERT(EPOLLHUP == POLLHUP);
+BOOST_STATIC_ASSERT(EPOLLHUP == POLLHUP);//被挂起
 
 namespace
 {
@@ -150,9 +150,9 @@ void EPollPoller::updateChannel(Channel* channel)
     assert(channels_.find(fd) != channels_.end());
     assert(channels_[fd] == channel);//直接覆盖即可释放原先保存的指针内存（shared_ptr）
     assert(index == kAdded);
-    if (channel->isNoneEvent())
+    if (channel->isNoneEvent())//不关注任何事件
     {
-      update(EPOLL_CTL_DEL, channel);
+      update(EPOLL_CTL_DEL, channel);//删除
       channel->set_index(kDeleted);
     }
     else

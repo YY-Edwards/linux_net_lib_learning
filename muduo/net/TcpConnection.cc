@@ -431,20 +431,23 @@ void TcpConnection::handleWrite()
   }
 }
 
+//新增一个主动断开的接口，直接调用handleClose（）即可。
 void TcpConnection::handleClose()
 {
+  
   loop_->assertInLoopThread();
   LOG_TRACE << "fd = " << channel_->fd() << " state = " << stateToString();
   assert(state_ == kConnected || state_ == kDisconnecting);
   // we don't close fd, leave it to dtor, so we can find leaks easily.
   setState(kDisconnected);
-  channel_->disableAll();
-
+  channel_->disableAll();//回调epoller->updateChannel
+						//先取消通道上关注的所有事件		
   TcpConnectionPtr guardThis(shared_from_this());
-  connectionCallback_(guardThis);
+  connectionCallback_(guardThis);//通知用户
   // must be the last line
   closeCallback_(guardThis);//主要是执行这个接口？
   //绑定到了TcpServer::removeConnection
+  //再调用TcpConnection::connectDestroyed()->remove(channel->eventloop->epoller)
 }
 
 void TcpConnection::handleError()

@@ -30,8 +30,9 @@ class LengthHeaderCodec : boost::noncopyable
     while (buf->readableBytes() >= kHeaderLen) // kHeaderLen == 4
     {
       // FIXME: use Buffer::peekInt32()
-	  LOG_TRACE<<"recv data: "<< ;
       const void* data = buf->peek();//当前可读的起始索引
+	  //std::string str_temp(static_cast<const char *>(data));
+	  //LOG_TRACE<<"recv data: "<< str_temp;
       int32_t be32 = *static_cast<const int32_t*>(data); // SIGBUS
 	  //这里这样获取消息长度，是根据自定义协议解析而成的。
 	  //因为消息头有个长度字段，解析出来才知道具体的消息长度是多少。
@@ -40,7 +41,7 @@ class LengthHeaderCodec : boost::noncopyable
       const int32_t len = muduo::net::sockets::networkToHost32(be32);
       if (len > 65536 || len < 0)
       {
-        LOG_ERROR << "Invalid length " << len;
+        LOG_ERROR << "Invalid length " << len << ", close obj.";
         conn->shutdown();  // FIXME: disable reading
         break;
       }
@@ -48,6 +49,7 @@ class LengthHeaderCodec : boost::noncopyable
       {
         buf->retrieve(kHeaderLen);//从kHeaderLen后开始检索正在的数据
         muduo::string message(buf->peek(), len);
+		LOG_TRACE<<"recv data: "<< message.c_str();
 		//调用server的onStringMessage()接口
         messageCallback_(conn, message, receiveTime);
         buf->retrieve(len);//可读指针偏移，即向后检索
