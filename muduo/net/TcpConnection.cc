@@ -338,6 +338,12 @@ void TcpConnection::connectEstablished()
   */
   //用以延长TcpConnection生命周期的？
   LOG_TRACE<<"channel_->tie the TcpConnection.";
+  
+  /*
+	当类A被share_ptr管理，且在类A的成员函数里需要把当前类对象作为参数传给其他函数时，
+	就需要传递一个指向自身的share_ptr。
+  */
+  
   channel_->tie(shared_from_this());
   /*
   此处会更新通道，并将新链接通道加入map表中。

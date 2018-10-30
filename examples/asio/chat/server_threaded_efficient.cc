@@ -14,6 +14,15 @@
 
 using namespace muduo;
 using namespace muduo::net;
+/*
+
+shared_ptr管理共享数据：
+<1>.对于write端，如果发现引用计数为1，可以安全的修改共享对象
+<2>.对于read端，在度之前把引用计数＋1，读完后-1，这样保证在读期间
+其引用计数大于1，可以阻止并发的写。
+<3>比较难的是，对于write端，如果发现计数>1，怎么办
+
+*/
 
 class ChatServer : boost::noncopyable
 {
@@ -48,8 +57,12 @@ class ChatServer : boost::noncopyable
         << (conn->connected() ? "UP" : "DOWN");
 
     MutexLockGuard lock(mutex_);
-    if (!connections_.unique())
+    if (!connections_.unique())//不唯一时，说明别的线程正在读此指针
     {
+	//“copy on write”	
+	// 那么复制，在副本上操作。
+	// 首先生成新对象，然后原引用计数减1，若引用计数为0，则析构原对象
+	// 最后将新对象的指针交给智能指针
       connections_.reset(new ConnectionList(*connections_));
     }
     assert(connections_.unique());
@@ -71,7 +84,7 @@ class ChatServer : boost::noncopyable
                        const string& message,
                        Timestamp)
   {
-    ConnectionListPtr connections = getConnectionList();;
+    ConnectionListPtr connections = getConnectionList();//缩短临界区的做法,读的时候引用计数+1
     for (ConnectionList::iterator it = connections->begin();
         it != connections->end();
         ++it)
