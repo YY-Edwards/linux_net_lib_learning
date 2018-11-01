@@ -55,14 +55,25 @@ class ChatServer : boost::noncopyable
     LOG_INFO << conn->localAddress().toIpPort() << " -> "
         << conn->peerAddress().toIpPort() << " is "
         << (conn->connected() ? "UP" : "DOWN");
-
+	
+	 /*此处需要加一下锁，但是仅仅是在写入是加锁，减少了读时锁的使用*/
     MutexLockGuard lock(mutex_);
     if (!connections_.unique())//不唯一时，说明别的线程正在读此指针
     {
+	//注意一个迭代器失效问题：
+	// 当定义一个vector的迭代器后，如果在这之后发生了插入新的数据，
+	// 那么这个迭代器将失效，因为迭代器是通过指针实现的，
+	// 内存地址都发生了改变，迭代器当然会失效。
 	//“copy on write”	
 	// 那么复制，在副本上操作。
 	// 首先生成新对象，然后原引用计数减1，若引用计数为0，则析构原对象
 	// 最后将新对象的指针交给智能指针
+	/*
+	如果引用计数大于1，则创建一个副本并在副本上修改，
+	shared_ptr通过reset操作后会使引用计数减1，
+	原先的数据在read结束后引用计数会减为0，
+	进而被系统释放
+	*/
       connections_.reset(new ConnectionList(*connections_));
     }
     assert(connections_.unique());
