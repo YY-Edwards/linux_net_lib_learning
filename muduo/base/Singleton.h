@@ -51,6 +51,13 @@ class Singleton : boost::noncopyable
     value_ = new T();
     if (!detail::has_no_destroy<T>::value)
     {
+		/*
+		
+		如果需要正确的释放资源的话，
+		可以在init函数里面使用glibc提供的atexit函数来注册相关的资源释放函数，
+		从而达到了只在进程退出时才释放资源的这一目的。
+		
+		*/
       ::atexit(destroy);
     }
   }
