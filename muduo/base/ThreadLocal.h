@@ -28,6 +28,26 @@ namespace muduo
 6、对于POD类型的线程本地存储，可以用__thread关键字
 */
 
+
+
+
+
+/*
+
+函数 pthread_key_create() 用来创建线程私有数据。该函数从 TSD 池中分配一项，将其地址值赋给 key 供以后访问使用。
+
+第 2 个参数是一个销毁函数，它是可选的，可以为 NULL，为 NULL 时，则系统调用默认的销毁函数进行相关的数据注销。
+
+如果不为空，则在线程退出时(调用 pthread_exit() 函数)时将以 key 锁关联的数据作为参数调用它，以释放分配的缓冲区，或是关闭文件流等。
+
+不论哪个线程调用了 pthread_key_create()，所创建的 key 都是所有线程可以访问的，但各个线程可以根据自己的需要往 key 中填入不同的值，相当于提供了一个同名而不同值的全局变量(这个全局变量相对于拥有这个变量的线程来说)。
+
+注销一个 TSD 使用 pthread_key_delete() 函数。该函数并不检查当前是否有线程正在使用该 TSD，也不会调用清理函数(destructor function)，而只是将 TSD 释放以供下一次调用 pthread_key_create() 使用。
+
+在 LinuxThread 中，它还会将与之相关的线程数据项设置为 NULL。
+
+
+*/
 template<typename T>
 class ThreadLocal : boost::noncopyable
 {

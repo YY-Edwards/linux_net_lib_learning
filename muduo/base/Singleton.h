@@ -49,7 +49,8 @@ class Singleton : boost::noncopyable
   static void init()
   {
     value_ = new T();
-    if (!detail::has_no_destroy<T>::value)
+	// //保证支持销毁方法才会注册atexit
+    if (!detail::has_no_destroy<T>::value)//据此，判断是否注册资源释放接口
     {
 		/*
 		
@@ -66,6 +67,7 @@ class Singleton : boost::noncopyable
   {
     typedef char T_must_be_complete_type[sizeof(T) == 0 ? -1 : 1];
     T_must_be_complete_type dummy; (void) dummy;
+	//现在A只是前向声明，是不完全类型，那么delete p会出问题，但在编译时只是报警告。
 
     delete value_;
     value_ = NULL;
