@@ -20,8 +20,15 @@ class ThreadLocalSingleton : boost::noncopyable
 
   static T& instance()
   {
-    if (!t_value_)
-    {
+    
+	//t_value_若不声明为线程局部存储措施，
+	//在单线程中是正确，但是多线程因为竞争会出现多次初始化的情况。
+	/*
+	但是声明为__thread 变量，则在不同的线程中都有一份独立的实例。
+	*/
+
+	if (!t_value_)
+	{
       t_value_ = new T();
       deleter_.set(t_value_);
     }

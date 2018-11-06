@@ -77,6 +77,8 @@ class EventLoop : boost::noncopyable
 
   size_t queueSize() const;
 
+//&&符号来获得右值引用：必须绑定到右值的引用。只能绑定到一个将要销毁的对象。
+//因此，我们可以自由地将一个右值引用的资源“移动”到另一个对象中。  
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
   void runInLoop(Functor&& cb);
   void queueInLoop(Functor&& cb);

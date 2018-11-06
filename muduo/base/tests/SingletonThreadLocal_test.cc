@@ -28,7 +28,18 @@ class Test : boost::noncopyable
   muduo::string name_;
 };
 
+
+/*
+
+muduo::Singleton<muduo::ThreadLocal<Test> >::instance() 
+保证不同线程调用返回的都是同一个ThreadLocal<Test> 对象，
+
+而不同线程调用ThreadLocal<Test>.value(); 返回的是不同的Test对象，
+即在不同线程中各有一份实际数据。
+
+*/
 #define STL muduo::Singleton<muduo::ThreadLocal<Test> >::instance().value()
+//不同的线程中，具有相同的ThreadLocal<Test>对象；不同的Test对象。从外层到里
 
 void print()
 {
@@ -47,15 +58,6 @@ void threadFunc(const char* changeTo)
 }
 
 
-/*
-
-muduo::Singleton<muduo::ThreadLocal<Test> >::instance() 
-保证不同线程调用返回的都是同一个ThreadLocal<Test> 对象，
-
-而不同线程调用ThreadLocal<Test>.value(); 返回的是不同的Test对象，
-即在不同线程中各有一份实际数据。
-
-*/
 int main()
 {
   STL.setName("main one");

@@ -21,6 +21,7 @@ namespace detail
 template<typename T>
 struct has_no_destroy
 {
+	//类/结构体的成员模板
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
   template <typename C> static char test(decltype(&C::no_destroy));
 #else
@@ -30,7 +31,7 @@ struct has_no_destroy
   const static bool value = sizeof(test<T>(0)) == 1;
 };
 }
-
+//模板如果要让别的文件引用的话，全部实现都应该放在h里面
 template<typename T>
 class Singleton : boost::noncopyable
 {
@@ -78,7 +79,10 @@ class Singleton : boost::noncopyable
   static T*             value_;
 };
 
+//定义模板里的静态变量，因为所有的实现都在h文件里了。
 template<typename T>
+//类模板的每个实例都有一个独有的static对象。
+//因此，与定义模板的成员函数类似，我们将static数据成员也定义为模板，并初始化。
 pthread_once_t Singleton<T>::ponce_ = PTHREAD_ONCE_INIT;
 
 template<typename T>
