@@ -66,7 +66,7 @@ void EventLoopThread::threadFunc()
 
   if (callback_)//如果有回调，则先执行回调
   {
-    callback_(&loop);
+    callback_(&loop);//在回调中传递栈参数loop
   }
 
   {

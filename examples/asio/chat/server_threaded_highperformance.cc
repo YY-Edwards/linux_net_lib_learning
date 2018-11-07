@@ -56,20 +56,39 @@ class ChatServer : boost::noncopyable
     {
       LocalConnections::instance().erase(conn);
     }
+	
+	LOG_DEBUG << "tid=" << muduo::CurrentThread::tid()
+	<<", addr:"<<&muduo::LocalConnections::instance());
   }
 
   void onStringMessage(const TcpConnectionPtr&,
                        const string& message,
                        Timestamp)
   {
+	 /*把消息"转发"作为IO线程的任务来处理*/  
     EventLoop::Functor f = boost::bind(&ChatServer::distributeMessage, this, message);
     LOG_DEBUG;
+	/*
 
+	 转发消息给所有客户端，高效率(多线程来转发),转发到不同的IO线程,
+
+	 */
     MutexLockGuard lock(mutex_);
+	/*for 循环和f达到异步进行*/
     for (std::set<EventLoop*>::iterator it = loops_.begin();
         it != loops_.end();
         ++it)
     {
+		/*
+
+		1.让对应的IO线程来执行distributeMessage 
+
+		2.distributeMessage放到IO线程队列中执行，因此，这里的mutex_锁竞争大大减小
+
+		3.distributeMesssge 不受mutex_保护
+
+        */
+		
       (*it)->queueInLoop(f);
     }
     LOG_DEBUG;
@@ -80,6 +99,7 @@ class ChatServer : boost::noncopyable
   void distributeMessage(const string& message)
   {
     LOG_DEBUG << "begin";
+	
     for (ConnectionList::iterator it = LocalConnections::instance().begin();
         it != LocalConnections::instance().end();
         ++it)
@@ -89,17 +109,26 @@ class ChatServer : boost::noncopyable
     LOG_DEBUG << "end";
   }
 
+  /*IO线程（EventLoopThread::threadFunc()）执行前时的前回调函数*/
   void threadInit(EventLoop* loop)
   {
+	//第一次进入分配内存后，则不再执行此函数
     assert(LocalConnections::pointer() == NULL);
     LocalConnections::instance();
+	 /*实例化一个对象*/
     assert(LocalConnections::pointer() != NULL);
     MutexLockGuard lock(mutex_);
-    loops_.insert(loop);
+    loops_.insert(loop);//累积每一个loop（thread）
+	
+	LOG_DEBUG << "tid=" << muduo::CurrentThread::tid()
+	<<", addr:"<<&muduo::LocalConnections::instance());
+	
   }
 
   TcpServer server_;
   LengthHeaderCodec codec_;
+  
+    /*线程局部单例变量，每个线程都有一个connections_(连接列表)实例*/
   typedef ThreadLocalSingleton<ConnectionList> LocalConnections;
 
   MutexLock mutex_;
@@ -108,6 +137,7 @@ class ChatServer : boost::noncopyable
 
 int main(int argc, char* argv[])
 {
+  muduo::Logger::setLogLevel(Logger::TRACE);	
   LOG_INFO << "pid = " << getpid();
   if (argc > 1)
   {

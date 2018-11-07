@@ -127,6 +127,9 @@ void TcpServer::newConnection(int sockfd, const InetAddress& peerAddr)
 	  首先更新channel需要关心的事件，随即调用eventloop中的update，
 	  然后再调用poller的updateChannel(每一个loop绑定一个poller),将描述符注册到指定的loop的poller中
 	  */
+	  //线程池大小固定的情况下，可能出现多个TcpConnection绑定同一个ioloop,
+	  //比如线程池大小固定为2，而TcpConnection有3个，那么根据round-robin算法来选取ioloop,
+	  //线程1可能绑定第一个和第三个连接，线程2绑定第二连接。
   ioLoop->runInLoop(boost::bind(&TcpConnection::connectEstablished, conn));
 }
 
