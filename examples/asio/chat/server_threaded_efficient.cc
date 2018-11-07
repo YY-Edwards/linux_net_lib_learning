@@ -100,6 +100,8 @@ class ChatServer : boost::noncopyable
         it != connections->end();
         ++it)
     {
+	//先要调用TcpConnection的send,是当前线程调用则直接发送，
+	//若不是则先要使用queueInLoop()注册到其所属线程的用户任务，等待唤醒执行。
       codec_.send(get_pointer(*it), message);
     }
   }

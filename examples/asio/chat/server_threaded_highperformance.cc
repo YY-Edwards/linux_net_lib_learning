@@ -47,7 +47,7 @@ class ChatServer : boost::noncopyable
     LOG_INFO << conn->localAddress().toIpPort() << " -> "
              << conn->peerAddress().toIpPort() << " is "
              << (conn->connected() ? "UP" : "DOWN");
-
+	//与其他两个多线的比，这里是无锁的。
     if (conn->connected())
     {
       LocalConnections::instance().insert(conn);
@@ -58,7 +58,7 @@ class ChatServer : boost::noncopyable
     }
 	
 	LOG_DEBUG << "tid=" << muduo::CurrentThread::tid()
-	<<", addr:"<<&muduo::LocalConnections::instance());
+	<<", addr:"<<&LocalConnections::instance();
   }
 
   void onStringMessage(const TcpConnectionPtr&,
@@ -88,7 +88,8 @@ class ChatServer : boost::noncopyable
 		3.distributeMesssge 不受mutex_保护
 
         */
-		
+	//如果是跨线程的调用，那么会启用wakeup来唤醒相对应的ioloop来执行f
+	//看作事件触发的话，即是先注册再唤醒，再执行。
       (*it)->queueInLoop(f);
     }
     LOG_DEBUG;
@@ -121,7 +122,8 @@ class ChatServer : boost::noncopyable
     loops_.insert(loop);//累积每一个loop（thread）
 	
 	LOG_DEBUG << "tid=" << muduo::CurrentThread::tid()
-	<<", addr:"<<&muduo::LocalConnections::instance());
+	<<", addr:"<<&LocalConnections::instance()
+	<<", loops_.size: "<< loops_.size();
 	
   }
 

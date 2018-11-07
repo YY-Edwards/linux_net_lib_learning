@@ -319,6 +319,7 @@ void EventLoop::abortNotInLoopThread()
 
 void EventLoop::wakeup()
 {
+  LOG_DEBUG<<"wakeupFd_:"<<wakeupFd_;
   uint64_t one = 1;
   ssize_t n = sockets::write(wakeupFd_, &one, sizeof one);
   if (n != sizeof one)
@@ -349,6 +350,7 @@ void EventLoop::doPendingFunctors()
 
   for (size_t i = 0; i < functors.size(); ++i)
   {
+	LOG_DEBUG;  
     functors[i]();//执行
   }
   callingPendingFunctors_ = false;
