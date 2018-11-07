@@ -54,6 +54,7 @@ class ChatServer : boost::noncopyable
     }
     else
     {
+	//distributeMessage是注册在所属ioloop中执行，因此不会存在竞争。
       LocalConnections::instance().erase(conn);
     }
 	
