@@ -70,6 +70,7 @@ class BlockingQueue : boost::noncopyable
   }
 
  private:
+ //mutable只能由于修饰类的非静态数据成员
   mutable MutexLock mutex_;
   Condition         notEmpty_;
   std::deque<T>     queue_;

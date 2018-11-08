@@ -23,6 +23,7 @@ class Test
       threads_.push_back(new muduo::Thread(
             boost::bind(&Test::threadFunc, this), muduo::string(name)));
     }
+	//这是bing搭配标准算法for_each用来调用容器中所有对象的start()函数
     for_each(threads_.begin(), threads_.end(), boost::bind(&muduo::Thread::start, _1));
   }
 
@@ -91,6 +92,10 @@ void testMove()
   queue.put(std::move(x));
   std::unique_ptr<int> y = queue.take();
   printf("took %d\n", *y);
+  if(x!=NULL)
+	printf("took_x %d \n", *x);
+  else
+	printf("x is NULL \n");
 #endif
 
 #endif

@@ -70,7 +70,7 @@ class Bench
         int delay = static_cast<int>(timeDifference(now, t) * 1000000);
         // printf("tid=%d, latency = %d us\n",
         //        muduo::CurrentThread::tid(), delay);
-        ++delays[delay];
+        ++delays[delay];//这个操作不是很明白
       }
       running = t.valid();
     }
@@ -97,6 +97,6 @@ int main(int argc, char* argv[])
   int threads = argc > 1 ? atoi(argv[1]) : 1;
 
   Bench t(threads);
-  t.run(10000);
+  t.run(20);
   t.joinAll();
 }
