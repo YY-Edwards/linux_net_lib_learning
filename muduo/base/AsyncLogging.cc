@@ -29,7 +29,7 @@ AsyncLogging::AsyncLogging(const string& basename,
 void AsyncLogging::append(const char* logline, int len)
 {
   muduo::MutexLockGuard lock(mutex_);
-  if (currentBuffer_->avail() > len)//没有写满继续追加
+  if (currentBuffer_->avail() > len)//没有写满继续追加,一个至少可以存储1000以上的日志
   {
     currentBuffer_->append(logline, len);
   }
@@ -39,6 +39,7 @@ void AsyncLogging::append(const char* logline, int len)
 
     if (nextBuffer_)//下一个地址有效
     {
+		//这里必须使用转移操作，因为BufferPtr相当于是std::unique_ptr不准复制与拷贝。
       currentBuffer_ = boost::ptr_container::move(nextBuffer_);//将下一个地址移动到当前buff，nextbuffer=NULL并释放
     }
     else//buffer用完，下一个地址无效
@@ -55,6 +56,7 @@ void AsyncLogging::threadFunc()
   assert(running_ == true);
   latch_.countDown();
   LogFile output(basename_, rollSize_, false);
+  //后端备用buffer
   BufferPtr newBuffer1(new Buffer);
   BufferPtr newBuffer2(new Buffer);
   newBuffer1->bzero();
@@ -73,10 +75,23 @@ void AsyncLogging::threadFunc()
       {
         cond_.waitForSeconds(flushInterval_);//条件信号已绑定mutex_，进入睡眠时会释放互斥锁
       }
+	  //下面这句可能出现4种情况：
+	  //1.append写满，触发通知，然后则切换到线程threadFunc(),那么此时的currentBuffer_内容为空。
+	  //那么此时push_back()动作时
+	  //buffers_里有两个对象（一个满，一个为空）。
+	  
+	  //2.append写满，触发通知，由于写入太快线程上下文不切换，继续执行append()函数（此时暂考虑在新分配的
+	  //currentBuffer_里写入部分数据，未写满），然后切换线程执行threadFunc()函数，那么此时push_back()动作时
+	  //buffers_里有两个对象，且都有数据（一个满，一个未满）。
+	  
+	  //3.append未满，3秒到，后端激活
+	  //4.append未满，3秒到，
       buffers_.push_back(currentBuffer_.release());//推送一个当前buff地址到队列中，转移控制权，并清空
-      currentBuffer_ = boost::ptr_container::move(newBuffer1);//用newbuffer1重新填充currentbuffer:将newbuffer1的地址移动到当前buffer，清空并释放
+	  
+	  //马上重新分配一个，保证append()函数永远有地可写。
+      currentBuffer_ = boost::ptr_container::move(newBuffer1);//用newbuffer1重新填充currentbuffer:将newbuffer1的地址移动到当前buffer
       buffersToWrite.swap(buffers_);//临时buffer交换，一次性交换出缓冲器里的所有数据，因临时buff为空，则缓冲器里的数目亦为空。
-      if (!nextBuffer_)//如果newbuffer1已经为空，则用newbuffer2重新填充nextbuffer，清空并释放newBuffer2
+      if (!nextBuffer_)//如果newbuffer1已经为空，则用newbuffer2重新填充nextbuffer
       {
         nextBuffer_ = boost::ptr_container::move(newBuffer2);
       }
@@ -104,7 +119,9 @@ void AsyncLogging::threadFunc()
     if (buffersToWrite.size() > 2)//若缓冲器大于2，则重置缓冲器大小，新分配的是在这里释放的？
     {
       // drop non-bzero-ed buffers, avoid trashing
-      buffersToWrite.resize(2);
+	  //If n is smaller than the current container size, 
+	  //the content is reduced to its first n elements, removing those beyond (and destroying them).
+      buffersToWrite.resize(2);//将最后的新分配的全部释放掉
     }
 
     if (!newBuffer1)//如果newbuffer1已经为空，从队列中取出一个地址填充newbuffer1

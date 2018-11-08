@@ -58,7 +58,7 @@ class AsyncLogging : boost::noncopyable
 
   typedef muduo::detail::FixedBuffer<muduo::detail::kLargeBuffer> Buffer;
   typedef boost::ptr_vector<Buffer> BufferVector;
-  typedef BufferVector::auto_type BufferPtr;
+  typedef BufferVector::auto_type BufferPtr;//std::unique_ptr
 
   const int flushInterval_;
   bool running_;
@@ -68,9 +68,9 @@ class AsyncLogging : boost::noncopyable
   muduo::CountDownLatch latch_;
   muduo::MutexLock mutex_;
   muduo::Condition cond_;
-  BufferPtr currentBuffer_;
-  BufferPtr nextBuffer_;
-  BufferVector buffers_;
+  BufferPtr currentBuffer_;//当前缓冲
+  BufferPtr nextBuffer_;//预备缓冲
+  BufferVector buffers_;//待写入已填满的缓冲
 };
 
 }
