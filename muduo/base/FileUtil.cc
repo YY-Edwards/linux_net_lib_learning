@@ -66,6 +66,11 @@ void FileUtil::AppendFile::flush()
 size_t FileUtil::AppendFile::write(const char* logline, size_t len)
 {
   // #undef fwrite_unlocked
+  
+  
+//为了快速，使用unlocked(无锁)的fwrite函数。平时我们使用的C语言IO函数，都是线程安全的，
+//为了做到线程安全，会在函数的内部加锁。这会拖慢速度。而对于这个类。可以保证，从
+//始到终只有一个线程能访问，所以无需进行加锁操作。
   return ::fwrite_unlocked(logline, 1, len, fp_);
 }
 

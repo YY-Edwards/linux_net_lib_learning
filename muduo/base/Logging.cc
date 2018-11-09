@@ -88,6 +88,17 @@ inline LogStream& operator<<(LogStream& s, const Logger::SourceFile& v)
   return s;
 }
 
+
+
+/*
+
+在muduo中，一般是将日志重定向到AsyncLogging对象中，
+具体是：先存放到AsyncLogging对象的一个缓存中，
+然后由AsyncLogging进行异步写入文件中。
+
+*/
+
+//默认情况下，其是向stdout（即标准输出）进行输出的。
 void defaultOutput(const char* msg, int len)
 {
   size_t n = fwrite(msg, 1, len, stdout);

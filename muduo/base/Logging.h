@@ -61,19 +61,27 @@ class Logger
   Logger(SourceFile file, int line, bool toAbort);
   ~Logger();
 
+  //返回的是个LogStream对象
   LogStream& stream() { return impl_.stream_; }
 
   static LogLevel logLevel();
   static void setLogLevel(LogLevel level);
 
+  // 定义了两个函数指针用于设置日志的输出位置
   typedef void (*OutputFunc)(const char* msg, int len);
   typedef void (*FlushFunc)();
+  /*
+	Logger::OutputFunc g_output = defaultOutput;
+	Logger::FlushFunc g_flush = defaultFlush;
+  */
+  
   static void setOutput(OutputFunc);
   static void setFlush(FlushFunc);
   static void setTimeZone(const TimeZone& tz);
 
  private:
-
+//定义了一个私有的Impl类,即是桥接模式，
+//以达到类之间的最小耦合关系。
 class Impl
 {
  public:
