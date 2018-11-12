@@ -96,6 +96,10 @@ inline LogStream& operator<<(LogStream& s, const Logger::SourceFile& v)
 具体是：先存放到AsyncLogging对象的一个缓存中，
 然后由AsyncLogging进行异步写入文件中。
 
+而C++对于栈中的具名对象，先创建的后销毁.
+调用LOG_*匿名对象时，先构造LogStream，然后是Impl，最后才是Logger。
+
+
 */
 
 //默认情况下，其是向stdout（即标准输出）进行输出的。
@@ -199,12 +203,16 @@ Logger::Logger(SourceFile file, int line, bool toAbort)
   : impl_(toAbort?FATAL:ERROR, errno, file, line)
 {
 }
+//C++中的匿名对象是pure RValue, 因而不能作为引用传进去。
+//匿名对象只存在于构造该对象的那行代码，
+//离开构造匿名对象的哪行代码后立即调用析构函数。
 
-Logger::~Logger()
+Logger::~Logger()//使用LOG_*宏，会创建一个临时匿名变量，
+//因为临时匿名对象是一使用完就马上销毁，调用析构函数。
 {
   impl_.finish();
   const LogStream::Buffer& buf(stream().buffer());
-  g_output(buf.data(), buf.length());
+  g_output(buf.data(), buf.length());//析构的时候将buf中的内容输出
   if (impl_.level_ == FATAL)
   {
     g_flush();

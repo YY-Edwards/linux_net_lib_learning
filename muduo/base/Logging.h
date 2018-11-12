@@ -4,6 +4,10 @@
 #include <muduo/base/LogStream.h>
 #include <muduo/base/Timestamp.h>
 
+
+
+//调用流程
+//Logger => Impl => LogStream => operator<< FixedBuffer => g_output => g_flush
 namespace muduo
 {
 
@@ -91,7 +95,7 @@ class Impl
   void finish();
 
   Timestamp time_;
-  LogStream stream_;
+  LogStream stream_;//而C++对于栈中的具名对象，先创建的后销毁.
   LogLevel level_;
   int line_;
   SourceFile basename_;
