@@ -8,6 +8,8 @@
 
 //调用流程
 //Logger => Impl => LogStream => operator<< FixedBuffer => g_output => g_flush
+//如果没有调用g_flush，会一直输出到缓冲区（标准输出缓冲区，文件FILE缓冲区）,并且当缓冲区满时才会真的输出在标准输出，
+//或者写入到文件中去。注：可以使用setbuffer设置缓冲区的大小。
 namespace muduo
 {
 

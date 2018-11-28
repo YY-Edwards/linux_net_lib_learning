@@ -213,7 +213,7 @@ Logger::~Logger()//使用LOG_*宏，会创建一个临时匿名变量，
   impl_.finish();
   const LogStream::Buffer& buf(stream().buffer());
   g_output(buf.data(), buf.length());//析构的时候将buf中的内容输出
-  if (impl_.level_ == FATAL)
+  if (impl_.level_ == FATAL)//需要立即显示的
   {
     g_flush();
     abort();

@@ -8,11 +8,15 @@ boost::scoped_ptr<muduo::LogFile> g_logFile;
 void outputFunc(const char* msg, int len)
 {
   g_logFile->append(msg, len);
+  // scoped_ptr<T> 重载operator->，调用LogFile::append(), 
+// 间接调用File::append(); 最后 ::fwrite_unlocked(fp_);
 }
 
 void flushFunc()
 {
   g_logFile->flush();
+  // scoped_ptr<T> 重载operator->，调用LogFile::flush(), 
+//间接调用File::flush()，最后::fflush(fp_);
 }
 
 int main(int argc, char* argv[])
