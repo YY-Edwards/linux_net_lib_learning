@@ -64,7 +64,7 @@ void LogFile::append_unlocked(const char* logline, int len)
 
   if (file_->writtenBytes() > rollSize_)
   {
-    rollFile();
+    rollFile();//转储
   }
   else
   {
@@ -99,7 +99,7 @@ bool LogFile::rollFile()
     lastRoll_ = now;
     lastFlush_ = now;
     startOfPeriod_ = start;
-    file_.reset(new FileUtil::AppendFile(filename));
+    file_.reset(new FileUtil::AppendFile(filename));//新建文本
     return true;
   }
   return false;

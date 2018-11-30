@@ -213,6 +213,9 @@ Logger::~Logger()//使用LOG_*宏，会创建一个临时匿名变量，
   impl_.finish();
   const LogStream::Buffer& buf(stream().buffer());
   g_output(buf.data(), buf.length());//析构的时候将buf中的内容输出
+  //fwrite每次都会先把数据写入一个应用进程缓冲区，等到该缓冲区满了，
+  //或者调用类似调用fflush这种冲洗缓冲区的函数时，
+  //系统会调用write一次性把相应数据写进内核缓冲区中
   if (impl_.level_ == FATAL)//需要立即显示的
   {
     g_flush();
