@@ -1,0 +1,2 @@
+strace -o chat_server_output.log -e trace=all -T -tt ./asio_chat_server 15320
+strace -o logfile_test.log -e trace=all -T -tt -p
