@@ -65,8 +65,9 @@ class EchoServer
   };
   typedef boost::shared_ptr<Entry> EntryPtr;
   typedef boost::weak_ptr<Entry> WeakEntryPtr;
-  //无序，哈希存储的set容器
+  //无序，哈希存储的set容器，类型为EntryPtr
   typedef boost::unordered_set<EntryPtr> Bucket;
+  //根据用户设置buff大小，即容器set的数量。
   typedef boost::circular_buffer<Bucket> WeakConnectionList;
 
   muduo::net::TcpServer server_;
