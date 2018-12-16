@@ -22,7 +22,9 @@ EchoServer::EchoServer(EventLoop* loop,
       boost::bind(&EchoServer::onConnection, this, _1));
   server_.setMessageCallback(
       boost::bind(&EchoServer::onMessage, this, _1, _2, _3));
+	  //注册定时（1s）回调
   loop->runEvery(1.0, boost::bind(&EchoServer::onTimer, this));
+  //为什么这里还要重置循环buff的大小
   connectionBuckets_.resize(idleSeconds);
   dumpConnectionBuckets();
 }
@@ -75,6 +77,9 @@ void EchoServer::onMessage(const TcpConnectionPtr& conn,
 
 void EchoServer::onTimer()
 {
+//往队尾添加一个空的 Bucket，
+//这样 circular_buffer 会自动弹出队首的 Bucket，并析构之.
+//buff满的情况下，这样才会弹出队首吧。待验证
   connectionBuckets_.push_back(Bucket());
   dumpConnectionBuckets();
 }

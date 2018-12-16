@@ -42,8 +42,11 @@ class EchoServer
 
   typedef boost::weak_ptr<muduo::net::TcpConnection> WeakTcpConnectionPtr;
 
+  //特制的结构体
   struct Entry : public muduo::copyable
   {
+	  //explicit意为必须显示的调用单参数构造函数，例如：Entry t(tcpcpnnect);传参的方式固定。
+	  //普通的构造函数可以隐式调用，但是多参数的也只能显示调用，而且不用添加关键字explicit。
     explicit Entry(const WeakTcpConnectionPtr& weakConn)
       : weakConn_(weakConn)
     {
@@ -62,6 +65,7 @@ class EchoServer
   };
   typedef boost::shared_ptr<Entry> EntryPtr;
   typedef boost::weak_ptr<Entry> WeakEntryPtr;
+  //无序，哈希存储的set容器
   typedef boost::unordered_set<EntryPtr> Bucket;
   typedef boost::circular_buffer<Bucket> WeakConnectionList;
 
