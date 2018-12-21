@@ -82,6 +82,8 @@ class Buffer : public muduo::copyable
   const char* findCRLF() const
   {
     // FIXME: replace with memmem()?
+	//An iterator to the first element of the first occurrence of [first2,last2) in [first1,last1).
+	//If the sequence is not found, the function returns last1.
     const char* crlf = std::search(peek(), beginWrite(), kCRLF, kCRLF+2);
     return crlf == beginWrite() ? NULL : crlf;
   }

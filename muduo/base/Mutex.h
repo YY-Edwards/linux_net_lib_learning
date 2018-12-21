@@ -138,6 +138,7 @@ class MutexLockGuard : boost::noncopyable
 {
  public:
  //传引用就可以避免这一点.(跟传指针类似，但是引用传递是有规则的，比如必须创建的同时必须初始化；不能出现NULL引用)
+ //引用就是一个别名，不是指向某个变量的指针，也不是拷贝。
  //如果我们需要只读地访问一个对象的话使用常引用可以有效避免资源浪费
   explicit MutexLockGuard(MutexLock& mutex)
     : mutex_(mutex)

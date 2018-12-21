@@ -24,6 +24,7 @@ void testHash()
 
 int main(int argc, char* argv[])
 {
+  muduo::Logger::setLogLevel(Logger::TRACE);
   testHash();
   EventLoop loop;
   InetAddress listenAddr(2007);
