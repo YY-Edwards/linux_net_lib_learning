@@ -22,6 +22,7 @@ using namespace muduo::net;
 
 Socket::~Socket()
 {
+  LOG_TRACE;	
   sockets::close(sockfd_);
 }
 

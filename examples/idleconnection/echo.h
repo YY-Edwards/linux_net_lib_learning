@@ -2,6 +2,7 @@
 #define MUDUO_EXAMPLES_IDLECONNECTION_ECHO_H
 
 #include <muduo/net/TcpServer.h>
+#include <muduo/base/Logging.h>
 //#include <muduo/base/Types.h>
 
 #include <boost/circular_buffer.hpp>
@@ -52,11 +53,13 @@ class EchoServer
     {
     }
 
-    ~Entry()
+    ~Entry()//析构的时候将保存的conn弱指针提升为强指针，并操作此对象
     {
       muduo::net::TcpConnectionPtr conn = weakConn_.lock();
       if (conn)
       {
+		LOG_TRACE << "shutdown conn"; 
+		//先关闭本地写，然后等待对方关闭，接收HUP事件，然后读到0则彻底关闭
         conn->shutdown();
       }
     }

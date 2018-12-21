@@ -196,6 +196,8 @@ void TcpConnection::sendInLoop(const void* data, size_t len)
   }
 }
 
+//首先关闭本地写端，等待对方关闭之后，
+//epoll会收到HUP事件，然后再关闭本地写端。
 void TcpConnection::shutdown()
 {
   // FIXME: use compare and swap
@@ -212,7 +214,8 @@ void TcpConnection::shutdownInLoop()
   loop_->assertInLoopThread();
   if (!channel_->isWriting())
   {
-    // we are not writing
+    LOG_TRACE<<"stop writing.";
+	// we are not writing
     socket_->shutdownWrite();
   }
 }
@@ -387,6 +390,7 @@ void TcpConnection::handleRead(Timestamp receiveTime)
   }
   else if (n == 0)
   {
+	LOG_TRACE<<"readFd == 0";
     handleClose();
   }
   else

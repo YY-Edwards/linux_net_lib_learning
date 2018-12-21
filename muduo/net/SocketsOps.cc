@@ -187,10 +187,12 @@ void sockets::close(int sockfd)
 
 void sockets::shutdownWrite(int sockfd)
 {
+	//服务端会发送TCP FIN?,对方会读到0字节，对方关闭。
   if (::shutdown(sockfd, SHUT_WR) < 0)
   {
     LOG_SYSERR << "sockets::shutdownWrite";
   }
+  LOG_TRACE << "sockets::shutdownWrite";
 }
 
 void sockets::toIpPort(char* buf, size_t size,

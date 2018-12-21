@@ -1,6 +1,6 @@
 #include "echo.h"
 
-#include <muduo/base/Logging.h>
+
 #include <muduo/net/EventLoop.h>
 
 #include <boost/bind.hpp>
@@ -43,7 +43,7 @@ void EchoServer::onConnection(const TcpConnectionPtr& conn)
   if (conn->connected())
   {
 	  {
-		EntryPtr entry(new Entry(conn));//构造一个新的Entry对象
+		EntryPtr entry(new Entry(conn));//构造一个新的Entry对象指针
 		//hash set 会自动去重
 		connectionBuckets_.back().insert(entry);//插入队列尾
 		dumpConnectionBuckets();//entry此时还并未回收，因此计数递增1
