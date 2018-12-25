@@ -30,7 +30,9 @@ Acceptor::Acceptor(EventLoop* loop, const InetAddress& listenAddr, bool reusepor
     acceptSocket_(sockets::createNonblockingOrDie(listenAddr.family())),
     acceptChannel_(loop, acceptSocket_.fd()),
     listenning_(false),
-    idleFd_(::open("/dev/null", O_RDONLY | O_CLOEXEC))//不懂事干什么用的
+    idleFd_(::open("/dev/null", O_RDONLY | O_CLOEXEC))//准备一个空闲描述符
+	//当本进程文件描述达到上限时，用这个空闲描述符做备用
+	//只是为了能优雅的断开客户端而已。
 {
   assert(idleFd_ >= 0);
   //创建tcp服务端

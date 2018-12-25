@@ -1,0 +1,29 @@
+1.如果使用muduo_lib做TcpServer,那么服务进程(多线程模式下)的描述符使用情况如下：
+	[one loop per thread]
+	
+	A.serverloop:
+		epoll_fd 	= 3;
+		timer_fd 	= 4;
+		wakeup_fd 	= 5;
+		accpetor_fd = 6;
+		idle_fd		= 7;//备用描述符，限制客户端连接数做备用的。
+	
+	B.ioloop[0]:
+		epoll_fd 	= 8;
+		timer_fd 	= 9;
+		wakeup_fd 	= 10;
+	
+	C.ioloop[1]:
+		epoll_fd 	= 11;
+		timer_fd 	= 12;
+		wakeup_fd 	= 13;
+		
+	......
+	
+	N.ioloop[N]:
+		epoll_fd 	= M;
+		timer_fd 	= M+1;
+		wakeup_fd 	= M+2;
+		
+		
+		

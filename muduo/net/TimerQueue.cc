@@ -137,7 +137,9 @@ TimerQueue::~TimerQueue()
   }
 }
 
+
 //拷贝：const T&
+//可以用于任何可以转换为TimerCallback的类型。
 TimerId TimerQueue::addTimer(const TimerCallback& cb,//非本线程调用
                              Timestamp when,
                              double interval)
@@ -151,6 +153,7 @@ TimerId TimerQueue::addTimer(const TimerCallback& cb,//非本线程调用
 
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
 //移动 T&&
+//只能用于实参是（非static）右值的情形
 TimerId TimerQueue::addTimer(TimerCallback&& cb,
                              Timestamp when,
                              double interval)
