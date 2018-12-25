@@ -19,7 +19,7 @@ LogFile::LogFile(const string& basename,
     flushInterval_(flushInterval),
     checkEveryN_(checkEveryN),
     count_(0),
-    mutex_(threadSafe ? new MutexLock : NULL),
+    mutex_(threadSafe ? new MutexLock : NULL),//不是线程安全就不需要构造mutex_
     startOfPeriod_(0),
     lastRoll_(0),
     lastFlush_(0)
@@ -60,6 +60,8 @@ void LogFile::flush()
 
 void LogFile::append_unlocked(const char* logline, int len)
 {
+//调用成员变量file_的方法，
+//也就是FileUtil.h中的AppendFile的不加锁apeend方法
   file_->append(logline, len);
 
   if (file_->writtenBytes() > rollSize_)
@@ -68,17 +70,18 @@ void LogFile::append_unlocked(const char* logline, int len)
   }
   else
   {
-    ++count_;
+    ++count_;//增加行数
     if (count_ >= checkEveryN_)
     {
       count_ = 0;
+	  //取得从1970年1月1日至今的秒数。
       time_t now = ::time(NULL);
       time_t thisPeriod_ = now / kRollPerSeconds_ * kRollPerSeconds_;
-      if (thisPeriod_ != startOfPeriod_)
+      if (thisPeriod_ != startOfPeriod_)//比较事件是否相等，不等就是第二天0点，那么滚动
       {
         rollFile();
       }
-      else if (now - lastFlush_ > flushInterval_)
+      else if (now - lastFlush_ > flushInterval_)//判断是否超过flush间隔时间(默认值3s)，超过了就flush，否则什么都不做。
       {
         lastFlush_ = now;
         file_->flush();
@@ -91,6 +94,8 @@ bool LogFile::rollFile()
 {
   time_t now = 0;
   string filename = getLogFileName(basename_, &now);
+  //注意，这里先除KRollPerSeconds然后乘KPollPerSeconds表示对齐值KRollPerSeconds的整数倍，
+  //也就是事件调整到当天零点(/除法会引发取整)
   //表示start对齐到kR的整数倍，也就是时间调整到当天零时
   time_t start = now / kRollPerSeconds_ * kRollPerSeconds_;
 

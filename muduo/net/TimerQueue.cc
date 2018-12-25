@@ -137,6 +137,7 @@ TimerQueue::~TimerQueue()
   }
 }
 
+//拷贝：const T&
 TimerId TimerQueue::addTimer(const TimerCallback& cb,//非本线程调用
                              Timestamp when,
                              double interval)
@@ -149,6 +150,7 @@ TimerId TimerQueue::addTimer(const TimerCallback& cb,//非本线程调用
 }
 
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
+//移动 T&&
 TimerId TimerQueue::addTimer(TimerCallback&& cb,
                              Timestamp when,
                              double interval)
@@ -160,6 +162,11 @@ TimerId TimerQueue::addTimer(TimerCallback&& cb,
 	std::move是将对象的状态或者所有权从一个对象转移到另一个对象，
 	只是转移，没有内存的搬迁或者内存拷贝。
 	*/
+	
+	//由于std::move()返回的是右值引用，因此会调用Timer的移动构造函数
+	//而addTimer()的调用取决于实参的类型，
+	//如果是右值，那么就调用支持移动的addTimer()重载函数
+	
   Timer* timer = new Timer(std::move(cb), when, interval);//构建新的timer对象
   loop_->runInLoop(
       boost::bind(&TimerQueue::addTimerInLoop, this, timer));

@@ -185,6 +185,7 @@ class PubSubServer : boost::noncopyable
     std::map<string, Topic>::iterator it = topics_.find(topic);
     if (it == topics_.end())
     {
+		//难道make_pair能识别？
       it = topics_.insert(make_pair(topic, Topic(topic))).first;
     }
     return it->second;

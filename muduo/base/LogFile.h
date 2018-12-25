@@ -22,7 +22,7 @@ class LogFile : boost::noncopyable
           off_t rollSize,
           bool threadSafe = true,
           int flushInterval = 3,
-          int checkEveryN = 1024);
+          int checkEveryN = 1024); //默认的分割行数为1024
   ~LogFile();
 
   void append(const char* logline, int len);
@@ -42,12 +42,12 @@ class LogFile : boost::noncopyable
   int count_;
 
   boost::scoped_ptr<MutexLock> mutex_;
-  time_t startOfPeriod_;
+  time_t startOfPeriod_;//开始记录日志时间（调整至零点时间？)
   time_t lastRoll_;
   time_t lastFlush_;
   boost::scoped_ptr<FileUtil::AppendFile> file_;
 
-  const static int kRollPerSeconds_ = 60*60*24;
+  const static int kRollPerSeconds_ = 60*60*24;//一天的秒数
 };
 
 }
