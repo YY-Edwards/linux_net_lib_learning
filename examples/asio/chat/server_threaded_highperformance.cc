@@ -42,12 +42,14 @@ class ChatServer : boost::noncopyable
   }
 
  private:
+ //如果是多线程模式，onConnection会在已分配的ioloop中被回调
   void onConnection(const TcpConnectionPtr& conn)
   {
     LOG_INFO << conn->localAddress().toIpPort() << " -> "
              << conn->peerAddress().toIpPort() << " is "
              << (conn->connected() ? "UP" : "DOWN");
-	//与其他两个多线的比，这里是无锁的。
+			 
+	//与其他两个多线的比，这里(LocalConnections)是无锁的。
     if (conn->connected())
     {
       LocalConnections::instance().insert(conn);

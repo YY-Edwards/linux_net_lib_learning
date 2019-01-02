@@ -55,7 +55,7 @@ class ChatServer : boost::noncopyable
     LOG_INFO << conn->localAddress().toIpPort() << " -> "
         << conn->peerAddress().toIpPort() << " is "
         << (conn->connected() ? "UP" : "DOWN");
-	
+	//注意如果要从多个线程读写同一个shared_ptr对象，那么需要加锁。
 	 /*此处需要加一下锁，但是仅仅是在写入是加锁，减少了读时锁的使用*/
     MutexLockGuard lock(mutex_);
     if (!connections_.unique())//不唯一时，说明别的线程正在读此指针
