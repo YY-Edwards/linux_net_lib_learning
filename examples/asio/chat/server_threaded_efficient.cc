@@ -55,7 +55,8 @@ class ChatServer : boost::noncopyable
     LOG_INFO << conn->localAddress().toIpPort() << " -> "
         << conn->peerAddress().toIpPort() << " is "
         << (conn->connected() ? "UP" : "DOWN");
-	//注意如果要从多个线程读写同一个shared_ptr对象，那么需要加锁。
+	//注意如果要从多个线程写同一个shared_ptr对象，那么需要加锁。
+	//多个线程读是安全的；写则不是。
 	 /*此处需要加一下锁，但是仅仅是在写入是加锁，减少了读时锁的使用*/
     MutexLockGuard lock(mutex_);
     if (!connections_.unique())//不唯一时，说明别的线程正在读此指针
@@ -74,10 +75,17 @@ class ChatServer : boost::noncopyable
 	原先的数据在read结束后引用计数会减为0，
 	进而被系统释放
 	*/
+		
+	//new ConnectionList(*connections_) 这段代码拷贝了一份ConnectionList
+    //connections_原来的引用计数减1，而connections_现在的引用计数
+    // 等于1	
+	
       connections_.reset(new ConnectionList(*connections_));
     }
     assert(connections_.unique());
 
+	
+	/*在复本上修改,不会影响读者,所以读者在遍历列表的时候,不需要mutex保护*/
     if (conn->connected())
     {
       connections_->insert(conn);
