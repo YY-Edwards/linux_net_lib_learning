@@ -58,6 +58,11 @@ class ChatServer : boost::noncopyable
 	//注意如果要从多个线程写同一个shared_ptr对象，那么需要加锁。
 	//多个线程读是安全的；写则不是。
 	 /*此处需要加一下锁，但是仅仅是在写入是加锁，减少了读时锁的使用*/
+	 
+	 
+	//根据COW的准则，当你是唯一拥有者（对应对象的引用计数是1）时，
+	//那么你直接修改数据，这样没有问题，当你不是唯一拥有者，
+	//则需要拷贝数据再去修改，这就需要用到一些shared_ptr的编程技法了：
     MutexLockGuard lock(mutex_);
     if (!connections_.unique())//不唯一时，说明别的线程正在读此指针
     {
@@ -65,20 +70,30 @@ class ChatServer : boost::noncopyable
 	// 当定义一个vector的迭代器后，如果在这之后发生了插入新的数据，
 	// 那么这个迭代器将失效，因为迭代器是通过指针实现的，
 	// 内存地址都发生了改变，迭代器当然会失效。
-	//“copy on write”	
-	// 那么复制，在副本上操作。
-	// 首先生成新对象，然后原引用计数减1，若引用计数为0，则析构原对象
-	// 最后将新对象的指针交给智能指针
+
+	//此处的技法类似：
+		//ConnectionList newConns(new ConnectionList(*connections_));//拷贝构造,引用计数为1，只是用connections_的内容新构造的
+		//交换智能指针:内容，计数都交换。此时newConns计数变为2，connections_计数变为1
+		//connections_.swap(newConns);
+		
+		
+		
 	/*
-	如果引用计数大于1，则创建一个副本并在副本上修改，
-	shared_ptr通过reset操作后会使引用计数减1，
-	原先的数据在read结束后引用计数会减为0，
-	进而被系统释放
+	shared_ptr通过reset操作后会使原先connections_引用计数减1，且connections_已经指向了新的对象（即是拷贝构造）
+	另外此时原对象有两种操作：
+	1.如果原引用计数减1后为0，那么原对象资源释放；
+	2.如果原引用计数减1后不为0，原先的数据在read结束离开作用域后引用计数会减为0，进而被系统释放。
+	
+	因为connections_已经是一个新的对象，且原对象计数减1的同时并未对其进行写操作，
+	那么任意修改新对象对原对象均不构成任何影响。
+	如果别的reader线程已经刚刚通过getConnectionList()拿到了ConnectionListPtr，
+	他会读到稍旧的数据，那么，在下一次读取的时候即会更新的了。
 	*/
+	
+	
 		
 	//new ConnectionList(*connections_) 这段代码拷贝了一份ConnectionList
-    //connections_原来的引用计数减1，而connections_现在的引用计数
-    // 等于1	
+    //connections_原来的引用计数减1，而connections_现在的引用计数等于1	
 	
       connections_.reset(new ConnectionList(*connections_));
     }
@@ -104,6 +119,7 @@ class ChatServer : boost::noncopyable
                        Timestamp)
   {
     ConnectionListPtr connections = getConnectionList();//缩短临界区的做法,读的时候引用计数+1
+														//而且可以保证拿到的对象不会在其他地方被写操作
     for (ConnectionList::iterator it = connections->begin();
         it != connections->end();
         ++it)
@@ -112,7 +128,7 @@ class ChatServer : boost::noncopyable
 	//若不是则先要使用queueInLoop()注册到其所属线程的用户任务，等待唤醒执行。
       codec_.send(get_pointer(*it), message);
     }
-  }
+  }//回收connections
 
   ConnectionListPtr getConnectionList()
   {
