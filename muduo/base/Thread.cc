@@ -149,6 +149,8 @@ void CurrentThread::sleepUsec(int64_t usec)
   struct timespec ts = { 0, 0 };
   ts.tv_sec = static_cast<time_t>(usec / Timestamp::kMicroSecondsPerSecond);
   ts.tv_nsec = static_cast<long>(usec % Timestamp::kMicroSecondsPerSecond * 1000);
+  //unix、linux系统尽量不要使用usleep和sleep而应该使用nanosleep，
+  //使用nanosleep应注意判断返回值和错误代码，否则容易造成cpu占用率100%
   ::nanosleep(&ts, NULL);
 }
 
