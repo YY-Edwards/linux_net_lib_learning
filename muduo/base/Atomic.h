@@ -38,28 +38,28 @@ class AtomicIntegerT : boost::noncopyable
   T get()
   {
     // in gcc >= 4.7: __atomic_load_n(&value_, __ATOMIC_SEQ_CST)
-    return __sync_val_compare_and_swap(&value_, 0, 0);
+    return __sync_val_compare_and_swap(&value_, 0, 0);//获取原值
   }
 
   T getAndAdd(T x)
   {
     // in gcc >= 4.7: __atomic_fetch_add(&value_, x, __ATOMIC_SEQ_CST)
-    return __sync_fetch_and_add(&value_, x);
+    return __sync_fetch_and_add(&value_, x);//先获取再加x
   }
 
   T addAndGet(T x)
   {
-    return getAndAdd(x) + x;
+    return getAndAdd(x) + x;//调用上面的接口，先加再返回加后的值
   }
 
   T incrementAndGet()
   {
-    return addAndGet(1);
+    return addAndGet(1);//原子加1
   }
 
   T decrementAndGet()
   {
-    return addAndGet(-1);
+    return addAndGet(-1);//原子减1
   }
 
   void add(T x)
@@ -77,14 +77,14 @@ class AtomicIntegerT : boost::noncopyable
     decrementAndGet();
   }
 
-  T getAndSet(T newValue)
+  T getAndSet(T newValue)//先返回再赋值
   {
     // in gcc >= 4.7: __atomic_exchange_n(&value, newValue, __ATOMIC_SEQ_CST)
     return __sync_lock_test_and_set(&value_, newValue);
   }
 
  private:
-  volatile T value_;
+  volatile T value_;//C语言中经常使用：保证数据读取时每一次都重新从内存中加载到CPU寄存器中。
 };
 }
 
