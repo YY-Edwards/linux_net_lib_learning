@@ -20,8 +20,10 @@ namespace muduo
 {
 
 #ifdef MUDUO_STD_STRING
+//无特殊处理的C++实现方式
 using std::string;
 #else  // !MUDUO_STD_STRING
+//利用string的短字符优化实现方式
 typedef __gnu_cxx::__sso_string string;
 #endif
 
@@ -79,6 +81,8 @@ typedef __gnu_cxx::__sso_string string;
 // implicit_cast would have been part of the C++ standard library,
 // but the proposal was submitted too late.  It will probably make
 // its way into the language in the future.
+//类型强转， implicit_cast只能执行up-cast,派生类->基类
+//这里模拟了boost库里面的implicit_cast
 template<typename To, typename From>
 inline To implicit_cast(From const &f)
 {
@@ -103,6 +107,7 @@ inline To implicit_cast(From const &f)
 //    if (dynamic_cast<Subclass2>(foo)) HandleASubclass2Object(foo);
 // You should design the code some other way not to need this.
 
+//进行down_cast 基类->派生类转换，并检查转换是否安全
 template<typename To, typename From>     // use like this: down_cast<T*>(foo);
 inline To down_cast(From* f)                     // so we only accept pointers
 {

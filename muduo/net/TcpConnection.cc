@@ -452,7 +452,7 @@ void TcpConnection::handleClose()
   setState(kDisconnected);
   channel_->disableAll();//回调epoller->updateChannel
 						//先取消通道上关注的所有事件		
-  TcpConnectionPtr guardThis(shared_from_this());
+  TcpConnectionPtr guardThis(shared_from_this());//增加引用计数
   connectionCallback_(guardThis);//通知用户
   // must be the last line
   closeCallback_(guardThis);//主要是执行这个接口？
