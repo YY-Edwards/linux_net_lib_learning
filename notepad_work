@@ -522,4 +522,580 @@
             <File name="examples\CMakeLists.txt" />
         </Folder>
     </Project>
+    <Project name="cpp11">
+        <Folder name=".github">
+            <File name="version_cpp11\muduo-cpp11\.github\issue_template.md" />
+        </Folder>
+        <Folder name="contrib">
+            <Folder name="hiredis">
+                <File name="version_cpp11\muduo-cpp11\contrib\hiredis\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\contrib\hiredis\Hiredis.cc" />
+                <File name="version_cpp11\muduo-cpp11\contrib\hiredis\Hiredis.h" />
+                <File name="version_cpp11\muduo-cpp11\contrib\hiredis\mrediscli.cc" />
+                <File name="version_cpp11\muduo-cpp11\contrib\hiredis\README.md" />
+            </Folder>
+            <Folder name="thrift">
+                <Folder name="tests">
+                    <Folder name="echo">
+                        <File name="version_cpp11\muduo-cpp11\contrib\thrift\tests\echo\CMakeLists.txt" />
+                        <File name="version_cpp11\muduo-cpp11\contrib\thrift\tests\echo\echo.thrift" />
+                        <File name="version_cpp11\muduo-cpp11\contrib\thrift\tests\echo\echoclient.py" />
+                        <File name="version_cpp11\muduo-cpp11\contrib\thrift\tests\echo\EchoServer.cc" />
+                    </Folder>
+                    <Folder name="ping">
+                        <File name="version_cpp11\muduo-cpp11\contrib\thrift\tests\ping\CMakeLists.txt" />
+                        <File name="version_cpp11\muduo-cpp11\contrib\thrift\tests\ping\ping.thrift" />
+                        <File name="version_cpp11\muduo-cpp11\contrib\thrift\tests\ping\pingclient.py" />
+                        <File name="version_cpp11\muduo-cpp11\contrib\thrift\tests\ping\PingServer.cc" />
+                    </Folder>
+                    <File name="version_cpp11\muduo-cpp11\contrib\thrift\tests\.gitignore" />
+                    <File name="version_cpp11\muduo-cpp11\contrib\thrift\tests\CMakeLists.txt" />
+                </Folder>
+                <File name="version_cpp11\muduo-cpp11\contrib\thrift\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\contrib\thrift\ThriftConnection.cc" />
+                <File name="version_cpp11\muduo-cpp11\contrib\thrift\ThriftConnection.h" />
+                <File name="version_cpp11\muduo-cpp11\contrib\thrift\ThriftServer.cc" />
+                <File name="version_cpp11\muduo-cpp11\contrib\thrift\ThriftServer.h" />
+            </Folder>
+            <File name="version_cpp11\muduo-cpp11\contrib\CMakeLists.txt" />
+        </Folder>
+        <Folder name="examples">
+            <Folder name="ace">
+                <Folder name="logging">
+                    <File name="version_cpp11\muduo-cpp11\examples\ace\logging\client.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\ace\logging\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\ace\logging\logrecord.proto" />
+                    <File name="version_cpp11\muduo-cpp11\examples\ace\logging\server.cc" />
+                </Folder>
+                <Folder name="ttcp">
+                    <File name="version_cpp11\muduo-cpp11\examples\ace\ttcp\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\ace\ttcp\common.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\ace\ttcp\common.h" />
+                    <File name="version_cpp11\muduo-cpp11\examples\ace\ttcp\main.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\ace\ttcp\ttcp.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\ace\ttcp\ttcp_asio_async.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\ace\ttcp\ttcp_asio_sync.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\ace\ttcp\ttcp_blocking.cc" />
+                </Folder>
+            </Folder>
+            <Folder name="asio">
+                <Folder name="chat">
+                    <File name="version_cpp11\muduo-cpp11\examples\asio\chat\client.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\asio\chat\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\asio\chat\codec.h" />
+                    <File name="version_cpp11\muduo-cpp11\examples\asio\chat\loadtest.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\asio\chat\server.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\asio\chat\server_threaded.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\asio\chat\server_threaded_efficient.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\asio\chat\server_threaded_highperformance.cc" />
+                </Folder>
+                <Folder name="tutorial">
+                    <Folder name="timer2">
+                        <File name="version_cpp11\muduo-cpp11\examples\asio\tutorial\timer2\timer.cc" />
+                    </Folder>
+                    <Folder name="timer3">
+                        <File name="version_cpp11\muduo-cpp11\examples\asio\tutorial\timer3\timer.cc" />
+                    </Folder>
+                    <Folder name="timer4">
+                        <File name="version_cpp11\muduo-cpp11\examples\asio\tutorial\timer4\timer.cc" />
+                    </Folder>
+                    <Folder name="timer5">
+                        <File name="version_cpp11\muduo-cpp11\examples\asio\tutorial\timer5\timer.cc" />
+                    </Folder>
+                    <Folder name="timer6">
+                        <File name="version_cpp11\muduo-cpp11\examples\asio\tutorial\timer6\timer.cc" />
+                    </Folder>
+                    <File name="version_cpp11\muduo-cpp11\examples\asio\tutorial\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\asio\tutorial\daytime_see_simple" />
+                    <File name="version_cpp11\muduo-cpp11\examples\asio\tutorial\there_is_no_timer1" />
+                </Folder>
+                <File name="version_cpp11\muduo-cpp11\examples\asio\echo_see_simple" />
+            </Folder>
+            <Folder name="cdns">
+                <File name="version_cpp11\muduo-cpp11\examples\cdns\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\cdns\dns.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\cdns\Resolver.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\cdns\Resolver.h" />
+            </Folder>
+            <Folder name="curl">
+                <File name="version_cpp11\muduo-cpp11\examples\curl\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\curl\Curl.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\curl\Curl.h" />
+                <File name="version_cpp11\muduo-cpp11\examples\curl\download.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\curl\mcurl.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\curl\README" />
+            </Folder>
+            <Folder name="fastcgi">
+                <File name="version_cpp11\muduo-cpp11\examples\fastcgi\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\fastcgi\fastcgi.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\fastcgi\fastcgi.h" />
+                <File name="version_cpp11\muduo-cpp11\examples\fastcgi\fastcgi_test.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\fastcgi\nginx.conf" />
+            </Folder>
+            <Folder name="filetransfer">
+                <Folder name="loadtest">
+                    <File name="version_cpp11\muduo-cpp11\examples\filetransfer\loadtest\Client.java" />
+                    <File name="version_cpp11\muduo-cpp11\examples\filetransfer\loadtest\Handler.java" />
+                </Folder>
+                <File name="version_cpp11\muduo-cpp11\examples\filetransfer\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\filetransfer\download.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\filetransfer\download2.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\filetransfer\download3.cc" />
+            </Folder>
+            <Folder name="hub">
+                <File name="version_cpp11\muduo-cpp11\examples\hub\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\hub\codec.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\hub\codec.h" />
+                <File name="version_cpp11\muduo-cpp11\examples\hub\hub.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\hub\pub.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\hub\pubsub.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\hub\pubsub.h" />
+                <File name="version_cpp11\muduo-cpp11\examples\hub\README" />
+                <File name="version_cpp11\muduo-cpp11\examples\hub\sub.cc" />
+            </Folder>
+            <Folder name="idleconnection">
+                <File name="version_cpp11\muduo-cpp11\examples\idleconnection\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\idleconnection\echo.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\idleconnection\echo.h" />
+                <File name="version_cpp11\muduo-cpp11\examples\idleconnection\main.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\idleconnection\sortedlist.cc" />
+            </Folder>
+            <Folder name="maxconnection">
+                <File name="version_cpp11\muduo-cpp11\examples\maxconnection\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\maxconnection\echo.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\maxconnection\echo.h" />
+                <File name="version_cpp11\muduo-cpp11\examples\maxconnection\main.cc" />
+            </Folder>
+            <Folder name="memcached">
+                <Folder name="client">
+                    <File name="version_cpp11\muduo-cpp11\examples\memcached\client\bench.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\memcached\client\CMakeLists.txt" />
+                </Folder>
+                <Folder name="server">
+                    <File name="version_cpp11\muduo-cpp11\examples\memcached\server\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\memcached\server\footprint_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\memcached\server\Item.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\memcached\server\Item.h" />
+                    <File name="version_cpp11\muduo-cpp11\examples\memcached\server\MemcacheServer.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\memcached\server\MemcacheServer.h" />
+                    <File name="version_cpp11\muduo-cpp11\examples\memcached\server\server.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\memcached\server\Session.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\memcached\server\Session.h" />
+                </Folder>
+                <File name="version_cpp11\muduo-cpp11\examples\memcached\README" />
+            </Folder>
+            <Folder name="multiplexer">
+                <Folder name="harness">
+                    <Folder name="src">
+                        <Folder name="com">
+                            <Folder name="chenshuo">
+                                <Folder name="muduo">
+                                    <Folder name="example">
+                                        <Folder name="multiplexer">
+                                            <Folder name="testcase">
+                                                <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\testcase\TestOneClientBackendSend.java" />
+                                                <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\testcase\TestOneClientBothSend.java" />
+                                                <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\testcase\TestOneClientNoData.java" />
+                                                <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\testcase\TestOneClientSend.java" />
+                                                <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\testcase\TestTwoClients.java" />
+                                            </Folder>
+                                            <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\DataEvent.java" />
+                                            <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\Event.java" />
+                                            <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\EventQueue.java" />
+                                            <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\EventSource.java" />
+                                            <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\MockBackendServer.java" />
+                                            <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\MockClient.java" />
+                                            <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\MultiplexerTest.java" />
+                                            <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\MyCountDownLatch.java" />
+                                            <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\TestCase.java" />
+                                            <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\src\com\chenshuo\muduo\example\multiplexer\TestFailedException.java" />
+                                        </Folder>
+                                    </Folder>
+                                </Folder>
+                            </Folder>
+                        </Folder>
+                    </Folder>
+                    <File name="version_cpp11\muduo-cpp11\examples\multiplexer\harness\run.sh" />
+                </Folder>
+                <File name="version_cpp11\muduo-cpp11\examples\multiplexer\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\multiplexer\demux.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\multiplexer\multiplexer.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\multiplexer\multiplexer_simple.cc" />
+            </Folder>
+            <Folder name="netty">
+                <Folder name="discard">
+                    <File name="version_cpp11\muduo-cpp11\examples\netty\discard\client.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\netty\discard\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\netty\discard\server.cc" />
+                </Folder>
+                <Folder name="echo">
+                    <File name="version_cpp11\muduo-cpp11\examples\netty\echo\client.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\netty\echo\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\netty\echo\server.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\netty\echo\server2.cc" />
+                </Folder>
+                <Folder name="uptime">
+                    <File name="version_cpp11\muduo-cpp11\examples\netty\uptime\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\netty\uptime\uptime.cc" />
+                </Folder>
+            </Folder>
+            <Folder name="pingpong">
+                <File name="version_cpp11\muduo-cpp11\examples\pingpong\bench.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\pingpong\client.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\pingpong\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\pingpong\server.cc" />
+            </Folder>
+            <Folder name="procmon">
+                <File name="version_cpp11\muduo-cpp11\examples\procmon\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\procmon\dummyload.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\procmon\plot.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\procmon\plot.h" />
+                <File name="version_cpp11\muduo-cpp11\examples\procmon\plot_test.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\procmon\procmon.cc" />
+            </Folder>
+            <Folder name="protobuf">
+                <Folder name="codec">
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\codec\client.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\codec\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\codec\codec.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\codec\codec.h" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\codec\codec_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\codec\dispatcher.h" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\codec\dispatcher_lite.h" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\codec\dispatcher_lite_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\codec\dispatcher_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\codec\query.proto" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\codec\server.cc" />
+                </Folder>
+                <Folder name="resolver">
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\resolver\client.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\resolver\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\resolver\resolver.proto" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\resolver\server.cc" />
+                </Folder>
+                <Folder name="rpc">
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\rpc\client.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\rpc\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\rpc\server.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\rpc\sudoku.proto" />
+                </Folder>
+                <Folder name="rpcbalancer">
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\rpcbalancer\balancer.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\rpcbalancer\balancer_raw.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\rpcbalancer\CMakeLists.txt" />
+                </Folder>
+                <Folder name="rpcbench">
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\rpcbench\client.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\rpcbench\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\rpcbench\echo.proto" />
+                    <File name="version_cpp11\muduo-cpp11\examples\protobuf\rpcbench\server.cc" />
+                </Folder>
+                <File name="version_cpp11\muduo-cpp11\examples\protobuf\CMakeLists.txt" />
+            </Folder>
+            <Folder name="roundtrip">
+                <File name="version_cpp11\muduo-cpp11\examples\roundtrip\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\roundtrip\roundtrip.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\roundtrip\roundtrip_udp.cc" />
+            </Folder>
+            <Folder name="shorturl">
+                <File name="version_cpp11\muduo-cpp11\examples\shorturl\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\shorturl\shorturl.cc" />
+            </Folder>
+            <Folder name="simple">
+                <Folder name="allinone">
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\allinone\allinone.cc" />
+                </Folder>
+                <Folder name="chargen">
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\chargen\chargen.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\chargen\chargen.h" />
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\chargen\main.cc" />
+                </Folder>
+                <Folder name="chargenclient">
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\chargenclient\chargenclient.cc" />
+                </Folder>
+                <Folder name="daytime">
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\daytime\daytime.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\daytime\daytime.h" />
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\daytime\main.cc" />
+                </Folder>
+                <Folder name="discard">
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\discard\discard.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\discard\discard.h" />
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\discard\main.cc" />
+                </Folder>
+                <Folder name="echo">
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\echo\echo.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\echo\echo.h" />
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\echo\main.cc" />
+                </Folder>
+                <Folder name="time">
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\time\main.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\time\time.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\time\time.h" />
+                </Folder>
+                <Folder name="timeclient">
+                    <File name="version_cpp11\muduo-cpp11\examples\simple\timeclient\timeclient.cc" />
+                </Folder>
+                <File name="version_cpp11\muduo-cpp11\examples\simple\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\simple\premake4.lua" />
+            </Folder>
+            <Folder name="socks4a">
+                <File name="version_cpp11\muduo-cpp11\examples\socks4a\balancer.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\socks4a\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\socks4a\socks4a.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\socks4a\tcprelay.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\socks4a\tunnel.h" />
+            </Folder>
+            <Folder name="sudoku">
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\batch.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\loadtest.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\percentile.h" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\pipeline.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\server_basic.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\server_hybrid.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\server_multiloop.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\server_prod.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\server_threadpool.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\stat.h" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\stat_unittest.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\sudoku.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\sudoku\sudoku.h" />
+            </Folder>
+            <Folder name="twisted">
+                <Folder name="finger">
+                    <File name="version_cpp11\muduo-cpp11\examples\twisted\finger\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\examples\twisted\finger\finger01.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\twisted\finger\finger02.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\twisted\finger\finger03.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\twisted\finger\finger04.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\twisted\finger\finger05.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\twisted\finger\finger06.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\twisted\finger\finger07.cc" />
+                    <File name="version_cpp11\muduo-cpp11\examples\twisted\finger\README" />
+                </Folder>
+            </Folder>
+            <Folder name="wordcount">
+                <File name="version_cpp11\muduo-cpp11\examples\wordcount\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\wordcount\gen.py" />
+                <File name="version_cpp11\muduo-cpp11\examples\wordcount\hash.h" />
+                <File name="version_cpp11\muduo-cpp11\examples\wordcount\hasher.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\wordcount\README" />
+                <File name="version_cpp11\muduo-cpp11\examples\wordcount\receiver.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\wordcount\slowsink.py" />
+            </Folder>
+            <Folder name="zeromq">
+                <File name="version_cpp11\muduo-cpp11\examples\zeromq\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\examples\zeromq\local_lat.cc" />
+                <File name="version_cpp11\muduo-cpp11\examples\zeromq\README" />
+                <File name="version_cpp11\muduo-cpp11\examples\zeromq\remote_lat.cc" />
+            </Folder>
+            <File name="version_cpp11\muduo-cpp11\examples\CMakeLists.txt" />
+        </Folder>
+        <Folder name="muduo">
+            <Folder name="base">
+                <Folder name="tests">
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\AsyncLogging_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\Atomic_unittest.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\BlockingQueue_bench.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\BlockingQueue_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\BoundedBlockingQueue_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\Date_unittest.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\Exception_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\FileUtil_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\Fork_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\GzipFile_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\LogFile_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\Logging_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\LogStream_bench.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\LogStream_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\Mutex_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\ProcessInfo_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\SingletonThreadLocal_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\Singleton_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\ThreadLocalSingleton_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\ThreadLocal_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\ThreadPool_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\Thread_bench.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\Thread_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\Timestamp_unittest.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\base\tests\TimeZone_unittest.cc" />
+                </Folder>
+                <File name="version_cpp11\muduo-cpp11\muduo\base\AsyncLogging.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\AsyncLogging.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Atomic.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\BlockingQueue.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\BoundedBlockingQueue.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Condition.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Condition.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\copyable.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\CountDownLatch.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\CountDownLatch.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\CurrentThread.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\CurrentThread.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Date.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Date.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Exception.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Exception.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\FileUtil.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\FileUtil.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\GzipFile.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\LogFile.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\LogFile.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Logging.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Logging.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\LogStream.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\LogStream.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Mutex.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\noncopyable.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\premake4.lua" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\ProcessInfo.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\ProcessInfo.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Singleton.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\StringPiece.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Thread.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Thread.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\ThreadLocal.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\ThreadLocalSingleton.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\ThreadPool.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\ThreadPool.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Timestamp.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Timestamp.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\TimeZone.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\TimeZone.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\Types.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\base\WeakCallback.h" />
+            </Folder>
+            <Folder name="net">
+                <Folder name="http">
+                    <Folder name="tests">
+                        <File name="version_cpp11\muduo-cpp11\muduo\net\http\tests\HttpRequest_unittest.cc" />
+                        <File name="version_cpp11\muduo-cpp11\muduo\net\http\tests\HttpServer_test.cc" />
+                    </Folder>
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\http\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\http\HttpContext.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\http\HttpContext.h" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\http\HttpRequest.h" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\http\HttpResponse.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\http\HttpResponse.h" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\http\HttpServer.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\http\HttpServer.h" />
+                </Folder>
+                <Folder name="inspect">
+                    <Folder name="tests">
+                        <File name="version_cpp11\muduo-cpp11\muduo\net\inspect\tests\Inspector_test.cc" />
+                    </Folder>
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\inspect\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\inspect\Inspector.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\inspect\Inspector.h" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\inspect\PerformanceInspector.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\inspect\PerformanceInspector.h" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\inspect\ProcessInspector.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\inspect\ProcessInspector.h" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\inspect\SystemInspector.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\inspect\SystemInspector.h" />
+                </Folder>
+                <Folder name="poller">
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\poller\DefaultPoller.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\poller\EPollPoller.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\poller\EPollPoller.h" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\poller\PollPoller.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\poller\PollPoller.h" />
+                </Folder>
+                <Folder name="protobuf">
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protobuf\BufferStream.h" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protobuf\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protobuf\ProtobufCodecLite.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protobuf\ProtobufCodecLite.h" />
+                </Folder>
+                <Folder name="protorpc">
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protorpc\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protorpc\google-inl.h" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protorpc\README" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protorpc\rpc.proto" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protorpc\RpcChannel.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protorpc\RpcChannel.h" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protorpc\RpcCodec.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protorpc\RpcCodec.h" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protorpc\RpcCodec_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protorpc\RpcServer.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protorpc\RpcServer.h" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\protorpc\rpcservice.proto" />
+                </Folder>
+                <Folder name="tests">
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\Buffer_unittest.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\Channel_test.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\CMakeLists.txt" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\EchoClient_unittest.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\EchoServer_unittest.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\EventLoopThreadPool_unittest.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\EventLoopThread_unittest.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\EventLoop_unittest.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\InetAddress_unittest.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\TcpClient_reg1.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\TcpClient_reg2.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\TcpClient_reg3.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\TimerQueue_unittest.cc" />
+                    <File name="version_cpp11\muduo-cpp11\muduo\net\tests\ZlibStream_unittest.cc" />
+                </Folder>
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Acceptor.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Acceptor.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\boilerplate.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\boilerplate.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Buffer.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Buffer.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Callbacks.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Channel.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Channel.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\CMakeLists.txt" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Connector.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Connector.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Endian.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\EventLoop.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\EventLoop.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\EventLoopThread.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\EventLoopThread.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\EventLoopThreadPool.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\EventLoopThreadPool.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\InetAddress.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\InetAddress.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Poller.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Poller.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\premake4.lua" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Socket.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Socket.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\SocketsOps.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\SocketsOps.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\TcpClient.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\TcpClient.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\TcpConnection.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\TcpConnection.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\TcpServer.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\TcpServer.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Timer.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\Timer.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\TimerId.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\TimerQueue.cc" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\TimerQueue.h" />
+                <File name="version_cpp11\muduo-cpp11\muduo\net\ZlibStream.h" />
+            </Folder>
+        </Folder>
+        <Folder name="patches">
+            <File name="version_cpp11\muduo-cpp11\patches\armlinux.diff" />
+            <File name="version_cpp11\muduo-cpp11\patches\backport.diff" />
+            <File name="version_cpp11\muduo-cpp11\patches\MacOSX.diff" />
+        </Folder>
+        <File name="version_cpp11\muduo-cpp11\.clang-tidy" />
+        <File name="version_cpp11\muduo-cpp11\.gitignore" />
+        <File name="version_cpp11\muduo-cpp11\.travis.yml" />
+        <File name="version_cpp11\muduo-cpp11\build.sh" />
+        <File name="version_cpp11\muduo-cpp11\ChangeLog" />
+        <File name="version_cpp11\muduo-cpp11\ChangeLog2" />
+        <File name="version_cpp11\muduo-cpp11\CMakeLists.txt" />
+        <File name="version_cpp11\muduo-cpp11\License" />
+        <File name="version_cpp11\muduo-cpp11\premake4.lua" />
+        <File name="version_cpp11\muduo-cpp11\README" />
+    </Project>
 </NotepadPlus>
