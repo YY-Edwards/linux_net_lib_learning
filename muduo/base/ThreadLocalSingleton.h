@@ -53,11 +53,14 @@ class ThreadLocalSingleton : boost::noncopyable
     t_value_ = 0;
   }
 
+  //使用单独的类对线程局部数据进行封装，每个变量使用一个独立的pthread_key_t。
   class Deleter
   {
    public:
     Deleter()
     {
+	  //不论哪个线程调用了 pthread_key_create()，所创建的 key 都是所有线程可以访问的，但各个线程可以根据自己的需要往 key 中填入不同的值，
+	  //相当于提供了一个同名而不同值的全局变量(这个全局变量相对于拥有这个变量的线程来说)。
       pthread_key_create(&pkey_, &ThreadLocalSingleton::destructor);
     }
 
@@ -72,8 +75,14 @@ class ThreadLocalSingleton : boost::noncopyable
       pthread_setspecific(pkey_, newObj);
     }
 
+	//pkey_ 是同名且全局，但访问的内存空间并不是相同的一个
     pthread_key_t pkey_;
   };
+
+  //deleter_ 是静态数据成员，为所有线程所共享；
+  //t_value_ 虽然也是静态数据成员，但加了__thread 修饰符，故每一个线程都会有一份。
+  //Deleter类是用来实现当某个线程执行完毕，执行注册的destructor函数，进而delete t_value_ 。
+  //key 的删除在~Deleter() 中
 
   static __thread T* t_value_;
   static Deleter deleter_;

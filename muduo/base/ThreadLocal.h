@@ -85,6 +85,10 @@ class ThreadLocal : boost::noncopyable
   }
 
  private:
+  //注意：
+  //这是与ThreadLocalSingleton的区别。
+ //pkey_可以是一个全局变量，在C++多线程编程中一般不使用全局变量，
+ //而是使用单独的类对线程局部数据进行封装，每个变量使用一个独立的pthread_key_t。
   pthread_key_t pkey_;
 };
 

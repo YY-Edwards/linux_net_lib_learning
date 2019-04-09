@@ -1098,4 +1098,47 @@
         <File name="version_cpp11\muduo-cpp11\premake4.lua" />
         <File name="version_cpp11\muduo-cpp11\README" />
     </Project>
+    <Project name="UDNS">
+        <Folder name="udns-0.2">
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\configure" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\configure.lib" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\COPYING.LGPL" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\dnsget.1" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\dnsget.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\ex-rdns.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\getopt.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\inet_XtoX.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\Makefile.in" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\NEWS" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\NOTES" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\rblcheck.1" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\rblcheck.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\TODO" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns.3" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns.h" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_bl.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_codes.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_dn.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_dntosp.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_init.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_jran.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_misc.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_parse.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_resolver.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_rr_a.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_rr_mx.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_rr_naptr.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_rr_ptr.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_rr_srv.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_rr_txt.c" />
+            <File name="F:\linux-sever\linux_lib\muduo-udns-master\udns-0.2\udns_XtoX.c" />
+        </Folder>
+        <File name="F:\linux-sever\linux_lib\muduo-udns-master\.gitignore" />
+        <File name="F:\linux-sever\linux_lib\muduo-udns-master\COPYING.LGPL" />
+        <File name="F:\linux-sever\linux_lib\muduo-udns-master\dns.cc" />
+        <File name="F:\linux-sever\linux_lib\muduo-udns-master\Makefile" />
+        <File name="F:\linux-sever\linux_lib\muduo-udns-master\README" />
+        <File name="F:\linux-sever\linux_lib\muduo-udns-master\Resolver.cc" />
+        <File name="F:\linux-sever\linux_lib\muduo-udns-master\Resolver.h" />
+    </Project>
 </NotepadPlus>
