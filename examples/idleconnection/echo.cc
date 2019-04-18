@@ -45,7 +45,7 @@ void EchoServer::onConnection(const TcpConnectionPtr& conn)
 	  {
 		EntryPtr entry(new Entry(conn));//构造一个新的Entry对象指针
 		//hash set 会自动去重
-		connectionBuckets_.back().insert(entry);//插入队列尾
+		connectionBuckets_.back().insert(entry);//在队尾的hash-set里插入对象
 		dumpConnectionBuckets();//entry此时还并未回收，因此计数递增1
 		WeakEntryPtr weakEntry(entry);//弱引用
 		conn->setContext(weakEntry);//将弱引用保存到context,更新数据的需要用？
